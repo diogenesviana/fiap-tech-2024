@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+   mysql:
+      image: mysql:latest
+      container_name: mysql-db
+      restart: always
+      environment:
+         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-4DM1N@_2O2A}
+         MYSQL_DATABASE: ${MYSQL_DATABASE:-ROOT}
+         MYSQL_USER: ${MYSQL_USER:-ADMIN}
+         MYSQL_PASSWORD: ${MYSQL_PASSWORD:-4DM1N@_2O2A}
+      ports:
+         - "3306:3306"
+      volumes:
+         - ./mysql:/var/lib/mysql
+   java_app:
+      build:
+         context: .
+         dockerfile: Dockerfile
+      container_name: java-app
+      restart: always
+      ports:
+         - "8080:8080"
+      depends_on:
+         - mysql
+
+volumes:
+   mysql-data:
