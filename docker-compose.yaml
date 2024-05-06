@@ -21,7 +21,7 @@ services:
       container_name: java-app
       restart: always
       ports:
-         - "8080:8080"
+         - 8080
       depends_on:
          - mysql
 
