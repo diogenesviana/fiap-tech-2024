@@ -12,6 +12,8 @@ services:
          MYSQL_PASSWORD: ${MYSQL_PASSWORD:-admin}
       volumes:
          - mysql-data:/var/lib/mysql
+      networks:
+         - internal-network
    java_app:
       build:
          context: .
@@ -22,6 +24,9 @@ services:
          - 8080
       depends_on:
          - mysql
-
+      networks:
+         - internal-network
 volumes:
    mysql-data:
+networks:
+   internal-network:
