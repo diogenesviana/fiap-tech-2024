@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+   mysql:
+      image: mysql:latest
+      container_name: mysql-db
+      restart: always
+      environment:
+         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+         MYSQL_DATABASE: ${MYSQL_DATABASE:-db}
+         MYSQL_USER: ${MYSQL_USER:-admin}
+         MYSQL_PASSWORD: ${MYSQL_PASSWORD:-admin}
+      volumes:
+         - mysql-data:/var/lib/mysql
+      networks:
+         - internal-network
+   java_app:
+      build:
+         context: .
+         dockerfile: Dockerfile
+      container_name: java-app
+      restart: always
+      ports:
+         - 8080
+      depends_on:
+         - mysql
+      networks:
+         - internal-network
+volumes:
+   mysql-data:
+networks:
+   internal-network:
+      driver: bridge
