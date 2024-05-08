@@ -1,7 +1,7 @@
-package com.fiaptech2024.fastfood.adapter.controllers;
+package com.fiaptech2024.fastfood.adapter.driver.controllers;
 
-import com.fiaptech2024.fastfood.domain.Cliente;
-import com.fiaptech2024.fastfood.domain.ports.ClienteServicePort;
+import com.fiaptech2024.fastfood.core.domain.Cliente;
+import com.fiaptech2024.fastfood.core.applications.ports.ClienteServicePort;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

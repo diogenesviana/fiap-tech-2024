@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.domain;
+package com.fiaptech2024.fastfood.core.domain;
 
 import java.time.Instant;
 import java.util.UUID;

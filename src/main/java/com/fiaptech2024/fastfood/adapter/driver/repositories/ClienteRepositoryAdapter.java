@@ -1,8 +1,8 @@
-package com.fiaptech2024.fastfood.adapter.repository;
+package com.fiaptech2024.fastfood.adapter.driver.repositories;
 
-import com.fiaptech2024.fastfood.adapter.entities.ClienteEntity;
-import com.fiaptech2024.fastfood.domain.Cliente;
-import com.fiaptech2024.fastfood.domain.ports.ClienteRepositoryPort;
+import com.fiaptech2024.fastfood.adapter.driver.entities.ClienteEntity;
+import com.fiaptech2024.fastfood.core.applications.ports.ClienteRepositoryPort;
+import com.fiaptech2024.fastfood.core.domain.Cliente;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

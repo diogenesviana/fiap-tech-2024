@@ -1,8 +1,8 @@
-package com.fiaptech2024.fastfood.domain.services;
+package com.fiaptech2024.fastfood.core.services;
 
-import com.fiaptech2024.fastfood.domain.Cliente;
-import com.fiaptech2024.fastfood.domain.ports.ClienteServicePort;
-import com.fiaptech2024.fastfood.domain.ports.ClienteRepositoryPort;
+import com.fiaptech2024.fastfood.core.domain.Cliente;
+import com.fiaptech2024.fastfood.core.applications.ports.ClienteServicePort;
+import com.fiaptech2024.fastfood.core.applications.ports.ClienteRepositoryPort;
 
 public class ClienteService implements ClienteServicePort {
 
