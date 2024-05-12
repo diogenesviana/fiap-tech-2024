@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.adapter.driven.infra;
+package com.fiaptech2024.fastfood.adapter.configuration;
 
 import com.fiaptech2024.fastfood.core.applications.ports.ClienteServicePort;
 import com.fiaptech2024.fastfood.core.applications.ports.ClienteRepositoryPort;
