@@ -28,6 +28,18 @@ public class Pedido {
         return this.id;
     }
 
+    public UUID getClienteId() {
+        return this.clienteId;
+    }
+
+    public PedidoStatus getStatus() {
+        return this.status;
+    }
+
+    public List<PedidoItem> getItems() {
+        return this.items;
+    }
+
     public void addItem(PedidoItem pedidoItem) {
         this.items.add(pedidoItem);
     }

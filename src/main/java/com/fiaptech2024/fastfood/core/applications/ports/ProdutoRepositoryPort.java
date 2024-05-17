@@ -13,4 +13,6 @@ public interface ProdutoRepositoryPort {
     List<Produto> findByTipoProduto(TipoProduto tipoProduto);
 
     Produto findByProduto(String produto);
+
+    Produto getById(UUID id);
 }

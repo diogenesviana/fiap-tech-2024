@@ -18,18 +18,18 @@ public class PedidoService implements PedidoServicePort {
 
     private final PedidoRepositoryPort pedidoRepositoryPort;
 
-//    private final ProdutoRepositoryPort produtoRepositoryPort;
+    private final ProdutoRepositoryPort produtoRepositoryPort;
 
-    public PedidoService(PedidoRepositoryPort pedidoRepositoryPort/*, ProdutoRepositoryPort produtoRepositoryPort*/) {
+    public PedidoService(PedidoRepositoryPort pedidoRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort) {
         this.pedidoRepositoryPort = pedidoRepositoryPort;
-//        ProdutoRepositoryPort produtoRepositoryPort
+        this.produtoRepositoryPort = produtoRepositoryPort;
     }
 
     @Override
     public UUID save(PedidoServiceDto pedidoServiceDto) {
         Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceDto.cliente_id(), PedidoStatus.RECEBIDO);
         for (PedidoServiceItemDto pedidoServiceItemDto : pedidoServiceDto.itens()) {
-            Produto produto = null;
+            Produto produto = this.produtoRepositoryPort.getById(pedidoServiceItemDto.item_id());
             if (produto == null) {
                 throw new EntityNotFoundException("Item do pedido não encontrado");
             }

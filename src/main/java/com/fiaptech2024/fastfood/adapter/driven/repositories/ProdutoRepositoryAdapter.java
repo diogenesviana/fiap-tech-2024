@@ -2,7 +2,6 @@ package com.fiaptech2024.fastfood.adapter.driven.repositories;
 
 
 import com.fiaptech2024.fastfood.adapter.driven.entities.ProdutoEntity;
-import com.fiaptech2024.fastfood.adapter.driven.repositories.ProdutoRepository;
 import com.fiaptech2024.fastfood.core.applications.ports.ProdutoRepositoryPort;
 import com.fiaptech2024.fastfood.core.domain.Produto;
 import com.fiaptech2024.fastfood.core.domain.TipoProduto;
@@ -11,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -39,6 +39,15 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     @Override
     public Produto findByProduto(String produto) {
         return converterProdutoEntityParaProduto(produtoRepository.findByNome(produto));
+    }
+
+    @Override
+    public Produto getById(UUID id) {
+        Optional<ProdutoEntity> produtoEntity = this.produtoRepository.findById(id);
+        if (produtoEntity.isEmpty()) {
+            return null;
+        }
+        return this.converterProdutoEntityParaProduto(produtoEntity.get());
     }
 
     public Produto converterProdutoEntityParaProduto(ProdutoEntity produtoEntity) {

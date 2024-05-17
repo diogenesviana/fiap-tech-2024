@@ -20,6 +20,22 @@ public class PedidoItem {
         this.quantidade = quantidade;
     }
 
+    public UUID getId() {
+        return this.id;
+    }
+
+    public UUID getItemId() {
+        return this.itemId;
+    }
+
+    public BigDecimal getValor() {
+        return this.valor;
+    }
+
+    public int getQuantidade() {
+        return this.quantidade;
+    }
+
     public BigDecimal getValorItem() {
         return this.valor.multiply(BigDecimal.valueOf(this.quantidade));
     }
