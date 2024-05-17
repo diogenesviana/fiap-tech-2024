@@ -18,7 +18,7 @@ public class PedidoService implements PedidoServicePort {
 
     private final PedidoRepositoryPort pedidoRepositoryPort;
 
-    private final ProdutoRepositoryPort produtoRepositoryPort;
+//    private final ProdutoRepositoryPort produtoRepositoryPort;
 
     public PedidoService(PedidoRepositoryPort pedidoRepositoryPort/*, ProdutoRepositoryPort produtoRepositoryPort*/) {
         this.pedidoRepositoryPort = pedidoRepositoryPort;
