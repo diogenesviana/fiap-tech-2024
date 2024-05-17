@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -39,7 +40,6 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     public Produto findByProduto(String produto) {
         return converterProdutoEntityParaProduto(produtoRepository.findByNome(produto));
     }
-
 
     public Produto converterProdutoEntityParaProduto(ProdutoEntity produtoEntity) {
         return modelMapper.map(produtoEntity, Produto.class);
