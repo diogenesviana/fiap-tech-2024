@@ -2,6 +2,7 @@ package com.fiaptech2024.fastfood.core.services;
 
 import com.fiaptech2024.fastfood.core.applications.ports.PedidoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.PedidoServicePort;
+import com.fiaptech2024.fastfood.core.applications.ports.ProdutoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.ProdutoServicePort;
 import com.fiaptech2024.fastfood.core.domain.Pedido;
 import com.fiaptech2024.fastfood.core.domain.PedidoItem;
@@ -17,11 +18,11 @@ public class PedidoService implements PedidoServicePort {
 
     private final PedidoRepositoryPort pedidoRepositoryPort;
 
-//    private final ProdutoServicePort produtoServicePort;
+    private final ProdutoRepositoryPort produtoRepositoryPort;
 
-    public PedidoService(PedidoRepositoryPort pedidoRepositoryPort/*, ProdutoServicePort produtoServicePort*/) {
+    public PedidoService(PedidoRepositoryPort pedidoRepositoryPort/*, ProdutoRepositoryPort produtoRepositoryPort*/) {
         this.pedidoRepositoryPort = pedidoRepositoryPort;
-//        this.produtoServicePort = produtoServicePort;
+//        ProdutoRepositoryPort produtoRepositoryPort
     }
 
     @Override
