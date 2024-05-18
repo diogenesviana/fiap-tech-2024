@@ -7,6 +7,8 @@ import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
 import com.fiaptech2024.fastfood.core.domain.Produto;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
+import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceDto;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceItemDto;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
@@ -26,7 +28,7 @@ public class PedidoService implements PedidoServicePort {
 
     @Override
     public UUID criarPedido(PedidoServiceDto pedidoServiceDto) {
-        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceDto.cliente_id(), PedidoStatus.RECEBIDO);
+        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceDto.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.AGUARDANDO);
         for (PedidoServiceItemDto pedidoServiceItemDto : pedidoServiceDto.itens()) {
             Produto produto = this.produtoRepositoryPort.getById(pedidoServiceItemDto.item_id());
             if (produto == null) {
@@ -34,23 +36,20 @@ public class PedidoService implements PedidoServicePort {
             }
             pedido.addItem(new PedidoItem(pedidoServiceItemDto.item_id(), produto.getPreco(), pedidoServiceItemDto.quantidade()));
         }
+        this.check(pedido);
         this.pedidoRepositoryPort.criarPedido(pedido);
         return pedido.getId();
     }
 
     private void check(Pedido pedido) {
-
-//        if(!isValidCPF(cliente.getCpf())){
-//            throw new RegraDeNegocioException("CPF inválido");
-//        }
-//
-//        if(clienteRepositoryPort.existsClienteByCpf(cliente.getCpf())){
-//            throw new RegraDeNegocioException("CPF já cadastrado");
-//        }
-//
-//        if (!isValidEmail(cliente.getEmail())){
-//            throw new RegraDeNegocioException("Email inválido");
-//        }
+        if (pedido.getItems().isEmpty()) {
+            throw new RegraDeNegocioException("O pedido deve contar um ou mais itens");
+        }
+        for (PedidoItem pedidoItem : pedido.getItems()) {
+            if (pedidoItem.getQuantidade() < 1) {
+                throw new RegraDeNegocioException("A quantidade do item deve ser maior que 0");
+            }
+        }
     }
 
 }

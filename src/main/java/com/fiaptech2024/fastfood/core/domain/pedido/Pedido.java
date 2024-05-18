@@ -1,6 +1,7 @@
 package com.fiaptech2024.fastfood.core.domain.pedido;
 
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,12 +16,15 @@ public class Pedido {
 
     private PedidoStatus status;
 
+    private StatusPagamento statusPagamento;
+
     private List<PedidoItem> items;
 
-    public Pedido(UUID id, UUID clienteId, PedidoStatus status) {
+    public Pedido(UUID id, UUID clienteId, PedidoStatus status, StatusPagamento statusPagamento) {
         this.id = id;
         this.clienteId = clienteId;
         this.status = status;
+        this.statusPagamento = statusPagamento;
         this.items = new ArrayList<>();
     }
 
@@ -34,6 +38,10 @@ public class Pedido {
 
     public PedidoStatus getStatus() {
         return this.status;
+    }
+
+    public StatusPagamento getStatusPagamento() {
+        return statusPagamento;
     }
 
     public List<PedidoItem> getItems() {
