@@ -1,11 +1,9 @@
-package com.fiaptech2024.fastfood.core.domain;
+package com.fiaptech2024.fastfood.core.domain.pedido;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public class PedidoItem {
-
-    private UUID id;
 
     private UUID itemId;
 
@@ -13,15 +11,10 @@ public class PedidoItem {
 
     private int quantidade;
 
-    public PedidoItem(UUID id, UUID itemId, BigDecimal valor, int quantidade) {
-        this.id = id;
+    public PedidoItem(UUID itemId, BigDecimal valor, int quantidade) {
         this.itemId = itemId;
         this.valor = valor;
         this.quantidade = quantidade;
-    }
-
-    public UUID getId() {
-        return this.id;
     }
 
     public UUID getItemId() {

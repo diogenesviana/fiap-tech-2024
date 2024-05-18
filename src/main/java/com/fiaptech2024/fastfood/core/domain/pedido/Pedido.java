@@ -1,6 +1,6 @@
-package com.fiaptech2024.fastfood.core.domain;
+package com.fiaptech2024.fastfood.core.domain.pedido;
 
-import com.fiaptech2024.fastfood.core.domain.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class Pedido {
     public BigDecimal getValor() {
         BigDecimal valor = BigDecimal.valueOf(0);
         for (PedidoItem pedidoItem : this.items) {
-            valor.add(pedidoItem.getValorItem());
+            valor = valor.add(pedidoItem.getValorItem());
         }
         return valor;
     }

@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,4 +29,7 @@ public class ProdutoEntity {
 
     @Enumerated(EnumType.STRING)
     private TipoProduto tipoProduto;
+
+    @OneToMany(mappedBy = "id")
+    private List<PedidoItemEntity> pedidosItens;
 }

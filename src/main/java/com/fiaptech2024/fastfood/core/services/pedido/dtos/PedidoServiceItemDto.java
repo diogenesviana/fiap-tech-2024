@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.core.services.dtos;
+package com.fiaptech2024.fastfood.core.services.pedido.dtos;
 
 import java.util.UUID;
 

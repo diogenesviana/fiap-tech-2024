@@ -1,9 +1,11 @@
 package com.fiaptech2024.fastfood.adapter.configuration;
 
 import com.fiaptech2024.fastfood.core.applications.ports.*;
+import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoRepositoryPort;
+import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
 import com.fiaptech2024.fastfood.core.services.ClienteService;
 import com.fiaptech2024.fastfood.core.services.ProdutoService;
-import com.fiaptech2024.fastfood.core.services.PedidoService;
+import com.fiaptech2024.fastfood.core.services.pedido.PedidoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

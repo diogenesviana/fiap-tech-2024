@@ -1,7 +1,6 @@
 package com.fiaptech2024.fastfood.adapter.driven.entities;
 
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
-import com.fiaptech2024.fastfood.core.domain.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +18,6 @@ import java.util.UUID;
 public class PedidoEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     private BigDecimal preco;

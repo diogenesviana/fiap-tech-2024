@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.adapter.driven.repositories;
+package com.fiaptech2024.fastfood.adapter.driven.repositories.pedido;
 
 import com.fiaptech2024.fastfood.adapter.driven.entities.PedidoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
