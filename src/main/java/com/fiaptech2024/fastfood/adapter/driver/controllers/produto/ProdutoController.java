@@ -1,8 +1,8 @@
-package com.fiaptech2024.fastfood.adapter.driver.controllers;
+package com.fiaptech2024.fastfood.adapter.driver.controllers.produto;
 
-import com.fiaptech2024.fastfood.core.applications.ports.ProdutoServicePort;
-import com.fiaptech2024.fastfood.core.domain.Produto;
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
+import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoServicePort;
+import com.fiaptech2024.fastfood.core.domain.produto.Produto;
+import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

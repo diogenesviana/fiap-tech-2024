@@ -1,8 +1,8 @@
-package com.fiaptech2024.fastfood.adapter.driven.repositories;
+package com.fiaptech2024.fastfood.adapter.driven.repositories.cliente;
 
-import com.fiaptech2024.fastfood.adapter.driven.entities.ClienteEntity;
-import com.fiaptech2024.fastfood.core.applications.ports.ClienteRepositoryPort;
-import com.fiaptech2024.fastfood.core.domain.Cliente;
+import com.fiaptech2024.fastfood.adapter.driven.entities.cliente.ClienteEntity;
+import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteRepositoryPort;
+import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 
 import lombok.AllArgsConstructor;
 

@@ -1,15 +1,12 @@
-package com.fiaptech2024.fastfood.adapter.driven.entities;
+package com.fiaptech2024.fastfood.adapter.driven.entities.produto;
 
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
+import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -29,7 +26,4 @@ public class ProdutoEntity {
 
     @Enumerated(EnumType.STRING)
     private TipoProduto tipoProduto;
-
-    @OneToMany(mappedBy = "id")
-    private List<PedidoItemEntity> pedidosItens;
 }

@@ -1,5 +1,6 @@
-package com.fiaptech2024.fastfood.adapter.driven.entities;
+package com.fiaptech2024.fastfood.adapter.driven.entities.pedido;
 
+import com.fiaptech2024.fastfood.adapter.driven.entities.cliente.ClienteEntity;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import jakarta.persistence.*;
@@ -34,7 +35,7 @@ public class PedidoEntity {
     @ManyToOne
     private ClienteEntity cliente;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<PedidoItemEntity> itens;
 
     @CreationTimestamp

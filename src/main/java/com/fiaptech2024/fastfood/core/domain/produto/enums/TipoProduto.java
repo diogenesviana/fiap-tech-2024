@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.core.domain;
+package com.fiaptech2024.fastfood.core.domain.produto.enums;
 
 public enum TipoProduto {
 

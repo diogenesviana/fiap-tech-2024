@@ -1,13 +1,12 @@
-package com.fiaptech2024.fastfood.core.services;
+package com.fiaptech2024.fastfood.core.services.produto;
 
-import com.fiaptech2024.fastfood.core.applications.ports.ProdutoRepositoryPort;
-import com.fiaptech2024.fastfood.core.applications.ports.ProdutoServicePort;
-import com.fiaptech2024.fastfood.core.domain.Produto;
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
+import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
+import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoServicePort;
+import com.fiaptech2024.fastfood.core.domain.produto.Produto;
+import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 public class ProdutoService implements ProdutoServicePort {
 

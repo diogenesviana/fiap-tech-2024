@@ -1,4 +1,6 @@
-package com.fiaptech2024.fastfood.core.domain;
+package com.fiaptech2024.fastfood.core.domain.produto;
+
+import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 
 import java.math.BigDecimal;
 import java.util.UUID;

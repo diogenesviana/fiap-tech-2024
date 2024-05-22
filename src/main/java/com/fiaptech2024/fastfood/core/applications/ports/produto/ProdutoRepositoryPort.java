@@ -1,7 +1,7 @@
-package com.fiaptech2024.fastfood.core.applications.ports;
+package com.fiaptech2024.fastfood.core.applications.ports.produto;
 
-import com.fiaptech2024.fastfood.core.domain.Produto;
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
+import com.fiaptech2024.fastfood.core.domain.produto.Produto;
+import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 
 import java.util.List;
 import java.util.UUID;

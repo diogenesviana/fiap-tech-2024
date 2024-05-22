@@ -1,7 +1,7 @@
-package com.fiaptech2024.fastfood.adapter.driver.controllers;
+package com.fiaptech2024.fastfood.adapter.driver.controllers.cliente;
 
-import com.fiaptech2024.fastfood.core.domain.Cliente;
-import com.fiaptech2024.fastfood.core.applications.ports.ClienteServicePort;
+import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
+import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;

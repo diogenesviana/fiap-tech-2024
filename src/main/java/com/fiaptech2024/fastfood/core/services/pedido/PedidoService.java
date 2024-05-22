@@ -2,17 +2,19 @@ package com.fiaptech2024.fastfood.core.services.pedido;
 
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
-import com.fiaptech2024.fastfood.core.applications.ports.ProdutoRepositoryPort;
+import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
-import com.fiaptech2024.fastfood.core.domain.Produto;
+import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceDto;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceItemDto;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
+import java.util.List;
 import java.util.UUID;
 
 public class PedidoService implements PedidoServicePort {
@@ -50,6 +52,10 @@ public class PedidoService implements PedidoServicePort {
                 throw new RegraDeNegocioException("A quantidade do item deve ser maior que 0");
             }
         }
+    }
+
+    public List<PedidoDTO> listar(PedidoStatus pedidoStatus){
+        return pedidoRepositoryPort.listar(pedidoStatus);
     }
 
 }

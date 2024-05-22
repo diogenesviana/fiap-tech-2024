@@ -1,5 +1,6 @@
-package com.fiaptech2024.fastfood.adapter.driven.entities;
+package com.fiaptech2024.fastfood.adapter.driven.entities.pedido;
 
+import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +22,10 @@ public class PedidoItemEntity {
     private int quantidade;
 
     @ManyToOne
+    @JoinColumn(name = "pedido_id")
     private PedidoEntity pedido;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "produto_id")
     private ProdutoEntity produto;
 }
