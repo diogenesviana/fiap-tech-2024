@@ -1,6 +1,7 @@
 package com.fiaptech2024.fastfood.adapter.driven.entities;
 
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,20 +17,27 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TB_PRODUTO")
-public class ProdutoEntity {
+@Table(name = "TB_PEDIDO")
+public class PedidoEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
-
-    private String nome;
 
     private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
-    private TipoProduto tipoProduto;
+    private PedidoStatus pedidoStatus;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento statusPagamento;
+
+    @ManyToOne
+    private ClienteEntity cliente;
 
     @OneToMany(mappedBy = "id")
-    private List<PedidoItemEntity> pedidosItens;
+    private List<PedidoItemEntity> itens;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private Instant dataCriacao;
 }

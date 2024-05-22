@@ -7,6 +7,7 @@ import com.fiaptech2024.fastfood.core.domain.TipoProduto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 public class ProdutoService implements ProdutoServicePort {
 

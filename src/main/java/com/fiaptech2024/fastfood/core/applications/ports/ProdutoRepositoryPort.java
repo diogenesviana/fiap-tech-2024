@@ -4,6 +4,7 @@ import com.fiaptech2024.fastfood.core.domain.Produto;
 import com.fiaptech2024.fastfood.core.domain.TipoProduto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProdutoRepositoryPort {
 
@@ -12,4 +13,6 @@ public interface ProdutoRepositoryPort {
     List<Produto> findByTipoProduto(TipoProduto tipoProduto);
 
     Produto findByProduto(String produto);
+
+    Produto getById(UUID id);
 }
