@@ -38,7 +38,8 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
 
     @Override
     public Produto findByProduto(String produto) {
-        return converterProdutoEntityParaProduto(produtoRepository.findByNome(produto));
+        Optional<ProdutoEntity> produtoOptional = produtoRepository.findByNome(produto);
+        return produtoOptional.map(this::converterProdutoEntityParaProduto).orElse(null);
     }
 
     @Override

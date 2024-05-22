@@ -12,7 +12,7 @@ public interface ProdutoRepository extends JpaRepository<ProdutoEntity, UUID> {
 
     List<ProdutoEntity>findByTipoProduto(TipoProduto tipoProduto);
 
-    ProdutoEntity findByNome(String produto);
+    Optional<ProdutoEntity> findByNome(String produto);
 
     Optional<ProdutoEntity> findById(UUID id);
 
