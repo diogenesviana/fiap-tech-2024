@@ -4,6 +4,7 @@ import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProdutoServicePort {
 
@@ -11,5 +12,5 @@ public interface ProdutoServicePort {
 
     List<Produto> findByTipoProduto(TipoProduto tipoProduto);
 
-    Produto findByProduto(String produto);
+    void deleteById(UUID id);
 }

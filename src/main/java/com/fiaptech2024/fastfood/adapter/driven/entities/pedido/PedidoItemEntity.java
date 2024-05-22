@@ -25,7 +25,7 @@ public class PedidoItemEntity {
     @JoinColumn(name = "pedido_id")
     private PedidoEntity pedido;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "produto_id")
     private ProdutoEntity produto;
 }

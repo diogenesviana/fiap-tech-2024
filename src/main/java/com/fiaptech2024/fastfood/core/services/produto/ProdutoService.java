@@ -1,5 +1,6 @@
 package com.fiaptech2024.fastfood.core.services.produto;
 
+import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoServicePort;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
@@ -8,6 +9,7 @@ import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 public class ProdutoService implements ProdutoServicePort {
 
@@ -29,11 +31,6 @@ public class ProdutoService implements ProdutoServicePort {
         return produtoRepositoryPort.findByTipoProduto(tipoProduto);
     }
 
-    @Override
-    public Produto findByProduto(String produto) {
-        return produtoRepositoryPort.findByProduto(produto);
-    }
-
     private void checkProduto(Produto produto) {
         if (produto.getNome() == null || produto.getNome().isEmpty()) {
             throw new RegraDeNegocioException("Nome do produto não pode ser vazio");
@@ -50,5 +47,18 @@ public class ProdutoService implements ProdutoServicePort {
         if(produtoDB != null) {
             throw new RegraDeNegocioException("Produto já cadastrado");
         }
+    }
+
+    private void validateDelete(UUID id) {
+        List<Produto> produtosDB = produtoRepositoryPort.findProdutosByItemsProdutos(id);
+        if(!produtosDB.isEmpty()) {
+            throw new RegraDeNegocioException("Produto possui itens de pedido associados, portanto não pode ser excluído");
+        }
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        validateDelete(id);
+        produtoRepositoryPort.deleteById(id);
     }
 }

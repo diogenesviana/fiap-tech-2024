@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("produto")
@@ -27,5 +28,11 @@ public class ProdutoController {
     public ResponseEntity<List<Produto>> searchProdutoByTipoProduto(@PathVariable("tipoProduto") TipoProduto tipoProduto) {
         List<Produto> produtoResponse = produtoServicePort.findByTipoProduto(tipoProduto);
         return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
+        produtoServicePort.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -60,5 +60,15 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
                 .map(this::converterProdutoEntityParaProduto).toList();
     }
 
+    @Override
+    public void deleteById(UUID id) {
+        produtoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Produto> findProdutosByItemsProdutos(UUID id) {
+        return converterListProdutoEntityParaProduto(produtoRepository.findProdutosByItemsProdutos(id));
+    }
+
 
 }

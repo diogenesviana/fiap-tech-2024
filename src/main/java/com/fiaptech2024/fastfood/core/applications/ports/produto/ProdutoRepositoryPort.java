@@ -1,5 +1,6 @@
 package com.fiaptech2024.fastfood.core.applications.ports.produto;
 
+import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 
@@ -15,4 +16,9 @@ public interface ProdutoRepositoryPort {
     Produto findByProduto(String produto);
 
     Produto getById(UUID id);
+
+    void deleteById(UUID id);
+
+    List<Produto> findProdutosByItemsProdutos(UUID id);
+
 }
