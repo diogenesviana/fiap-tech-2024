@@ -1,15 +1,21 @@
 package com.fiaptech2024.fastfood.adapter.driven.repositories.pedido;
 
-import com.fiaptech2024.fastfood.adapter.driven.entities.ClienteEntity;
-import com.fiaptech2024.fastfood.adapter.driven.entities.PedidoEntity;
-import com.fiaptech2024.fastfood.adapter.driven.entities.PedidoItemEntity;
-import com.fiaptech2024.fastfood.adapter.driven.entities.ProdutoEntity;
+import com.fiaptech2024.fastfood.adapter.driven.entities.cliente.ClienteEntity;
+import com.fiaptech2024.fastfood.adapter.driven.entities.pedido.PedidoEntity;
+import com.fiaptech2024.fastfood.adapter.driven.entities.pedido.PedidoItemEntity;
+import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoRepositoryPort;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoItemDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -49,4 +55,24 @@ public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
         return pedido;
     }
 
+    @Override
+    public List<PedidoDTO> listar(PedidoStatus pedidoStatus) {
+        List<PedidoEntity> listaDePedidos = pedidoRepository.listarPorStatus(pedidoStatus);
+        List<PedidoDTO> listaDePedidosDTO = new ArrayList<>();
+        for (PedidoEntity pedidoEntity : listaDePedidos) {
+            PedidoDTO pedidoDTO = new PedidoDTO(pedidoEntity.getId(),
+                    pedidoEntity.getPreco(),
+                    pedidoEntity.getPedidoStatus(),
+                    pedidoEntity.getStatusPagamento(),
+                    pedidoEntity.getCliente().getNome(),
+                    pedidoEntity.getItens().stream()
+                            .map(pedidoItemEntity -> new PedidoItemDTO(pedidoItemEntity.getId(),
+                            pedidoItemEntity.getQuantidade(),
+                            pedidoItemEntity.getProduto().getNome())).toList(),
+                    pedidoEntity.getDataCriacao());
+            listaDePedidosDTO.add(pedidoDTO);
+
+        }
+        return listaDePedidosDTO;
+    }
 }

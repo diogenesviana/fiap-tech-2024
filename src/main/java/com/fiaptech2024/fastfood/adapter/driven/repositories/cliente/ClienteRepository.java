@@ -1,7 +1,7 @@
-package com.fiaptech2024.fastfood.adapter.driven.repositories;
+package com.fiaptech2024.fastfood.adapter.driven.repositories.cliente;
 
 
-import com.fiaptech2024.fastfood.adapter.driven.entities.ClienteEntity;
+import com.fiaptech2024.fastfood.adapter.driven.entities.cliente.ClienteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

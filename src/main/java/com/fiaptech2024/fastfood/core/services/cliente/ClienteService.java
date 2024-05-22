@@ -1,13 +1,13 @@
-package com.fiaptech2024.fastfood.core.services;
+package com.fiaptech2024.fastfood.core.services.cliente;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.InputMismatchException;
 import java.util.UUID;
 
-import com.fiaptech2024.fastfood.core.domain.Cliente;
-import com.fiaptech2024.fastfood.core.applications.ports.ClienteServicePort;
-import com.fiaptech2024.fastfood.core.applications.ports.ClienteRepositoryPort;
+import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
+import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
+import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteRepositoryPort;
 import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 

@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.adapter.driven.entities;
+package com.fiaptech2024.fastfood.adapter.driven.entities.cliente;
 
 
 import jakarta.persistence.Entity;

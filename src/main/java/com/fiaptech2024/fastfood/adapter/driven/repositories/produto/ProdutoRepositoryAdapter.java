@@ -1,10 +1,10 @@
-package com.fiaptech2024.fastfood.adapter.driven.repositories;
+package com.fiaptech2024.fastfood.adapter.driven.repositories.produto;
 
 
-import com.fiaptech2024.fastfood.adapter.driven.entities.ProdutoEntity;
-import com.fiaptech2024.fastfood.core.applications.ports.ProdutoRepositoryPort;
-import com.fiaptech2024.fastfood.core.domain.Produto;
-import com.fiaptech2024.fastfood.core.domain.TipoProduto;
+import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
+import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
+import com.fiaptech2024.fastfood.core.domain.produto.Produto;
+import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
