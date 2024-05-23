@@ -31,6 +31,5 @@ public class ProdutoEntity {
 
     @OneToMany(mappedBy = "produto")
     private List<PedidoItemEntity> pedidosItens;
-
-
+    
 }

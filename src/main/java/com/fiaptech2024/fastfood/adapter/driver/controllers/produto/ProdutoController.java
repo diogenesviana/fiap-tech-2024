@@ -3,6 +3,7 @@ package com.fiaptech2024.fastfood.adapter.driver.controllers.produto;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoServicePort;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
+import com.fiaptech2024.fastfood.core.services.produto.dtos.ProdutoDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class ProdutoController {
     private final ProdutoServicePort produtoServicePort;
 
     @PostMapping
-    public ResponseEntity<Produto> create(@RequestBody Produto produto){
-        var produtoResponse = produtoServicePort.save(produto);
+    public ResponseEntity<Produto> create(@RequestBody ProdutoDTO produtoDTO){
+        var produtoResponse = produtoServicePort.save(produtoDTO);
         return new ResponseEntity<>(produtoResponse, HttpStatus.CREATED);
     }
 
@@ -33,6 +34,12 @@ public class ProdutoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
         produtoServicePort.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> update(@PathVariable("id") UUID id, @RequestBody ProdutoDTO produtoDTO) {
+        produtoServicePort.update(id, produtoDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
