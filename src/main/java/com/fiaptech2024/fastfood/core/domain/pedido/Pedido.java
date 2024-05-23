@@ -59,4 +59,12 @@ public class Pedido {
         }
         return valor;
     }
+
+    public void setStatus(PedidoStatus status) {
+        this.status=status;
+    }
+
+    public void setStatusPagamento(StatusPagamento statusPagamento) {
+        this.statusPagamento = statusPagamento;
+    }
 }
