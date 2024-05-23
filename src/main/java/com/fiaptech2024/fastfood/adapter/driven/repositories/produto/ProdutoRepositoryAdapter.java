@@ -5,6 +5,7 @@ import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
+import com.fiaptech2024.fastfood.core.services.produto.dtos.ProdutoDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,12 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     private final ModelMapper modelMapper;
 
     @Override
-    public Produto save(Produto produto) {
+    public Produto save(ProdutoDTO produtoDTO) {
+        ProdutoEntity entity = new ProdutoEntity(produtoDTO.id()
+                , produtoDTO.nome()
+                , produtoDTO.preco()
+                , produtoDTO.tipoProduto());
 
-        ProdutoEntity entity = modelMapper.map(produto, ProdutoEntity.class);
         entity = produtoRepository.save(entity);
         return converterProdutoEntityParaProduto(entity);
 
@@ -38,7 +42,8 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
 
     @Override
     public Produto findByProduto(String produto) {
-        return converterProdutoEntityParaProduto(produtoRepository.findByNome(produto));
+        Optional<ProdutoEntity> produtoOptional = produtoRepository.findByNome(produto);
+        return produtoOptional.map(this::converterProdutoEntityParaProduto).orElse(null);
     }
 
     @Override
@@ -57,6 +62,27 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
     public List<Produto> converterListProdutoEntityParaProduto(List<ProdutoEntity> entity) {
         return entity.stream()
                 .map(this::converterProdutoEntityParaProduto).toList();
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        produtoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Produto> findProdutosByItemsProdutos(UUID id) {
+        return converterListProdutoEntityParaProduto(produtoRepository.findProdutosByItemsProdutos(id));
+    }
+
+    @Override
+    public void update(UUID id, ProdutoDTO produtoDTO) {
+        ProdutoEntity entity = new ProdutoEntity(produtoDTO.id()
+                , produtoDTO.nome()
+                , produtoDTO.preco()
+                , produtoDTO.tipoProduto());
+
+        entity.setId(id);
+        produtoRepository.save(entity);
     }
 
 
