@@ -31,5 +31,12 @@ public class ProdutoEntity {
 
     @OneToMany(mappedBy = "produto")
     private List<PedidoItemEntity> pedidosItens;
+
+    public ProdutoEntity(UUID id, String nome, BigDecimal preco, TipoProduto tipoProduto) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        this.tipoProduto = tipoProduto;
+    }
     
 }
