@@ -1,8 +1,10 @@
 package com.fiaptech2024.fastfood.core.services.pedido;
 
+import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
+import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
@@ -10,8 +12,8 @@ import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceDto;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceItemDto;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPedidoDto;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPedidoItemDto;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
 import java.util.List;
@@ -23,15 +25,22 @@ public class PedidoService implements PedidoServicePort {
 
     private final ProdutoRepositoryPort produtoRepositoryPort;
 
-    public PedidoService(PedidoRepositoryPort pedidoRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort) {
+    private final ClienteRepositoryPort clienteRepositoryPort;
+
+    public PedidoService(PedidoRepositoryPort pedidoRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort, ClienteRepositoryPort clienteRepositoryPort) {
         this.pedidoRepositoryPort = pedidoRepositoryPort;
         this.produtoRepositoryPort = produtoRepositoryPort;
+        this.clienteRepositoryPort = clienteRepositoryPort;
     }
 
     @Override
-    public UUID criarPedido(PedidoServiceDto pedidoServiceDto) {
-        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceDto.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.AGUARDANDO);
-        for (PedidoServiceItemDto pedidoServiceItemDto : pedidoServiceDto.itens()) {
+    public UUID criarPedido(PedidoServiceCriarPedidoDto pedidoServiceCriarPedidoDto) {
+        Cliente cliente = this.clienteRepositoryPort.getClienteById(pedidoServiceCriarPedidoDto.cliente_id());
+        if (cliente == null) {
+            throw new EntityNotFoundException("CLiente não encontrado");
+        }
+        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.AGUARDANDO);
+        for (PedidoServiceCriarPedidoItemDto pedidoServiceItemDto : pedidoServiceCriarPedidoDto.itens()) {
             Produto produto = this.produtoRepositoryPort.getById(pedidoServiceItemDto.item_id());
             if (produto == null) {
                 throw new EntityNotFoundException("Item do pedido não encontrado");
@@ -54,7 +63,7 @@ public class PedidoService implements PedidoServicePort {
         }
     }
 
-    public List<PedidoDTO> listar(PedidoStatus pedidoStatus){
+    public List<PedidoDTO> listar(PedidoStatus pedidoStatus) {
         return pedidoRepositoryPort.listar(pedidoStatus);
     }
 
