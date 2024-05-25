@@ -1,5 +1,6 @@
 package com.fiaptech2024.fastfood.core.services.cliente;
 
+import java.time.Instant;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.InputMismatchException;
@@ -8,6 +9,7 @@ import java.util.UUID;
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
 import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteRepositoryPort;
+import com.fiaptech2024.fastfood.core.services.cliente.dtos.ClienteServiceSaveClienteDto;
 import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
@@ -38,10 +40,11 @@ public class ClienteService implements ClienteServicePort {
     }
 
     @Override
-    public Cliente saveCliente(Cliente cliente) {
+    public Cliente saveCliente(ClienteServiceSaveClienteDto clienteDto) {
 
+        Cliente cliente = new Cliente(UUID.randomUUID(), clienteDto.nome(), clienteDto.cpf(), clienteDto.email(), Instant.now());
         checkCliente(cliente);
-        
+
         return clienteRepositoryPort.saveCliente(cliente);
     }
 

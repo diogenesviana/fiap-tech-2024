@@ -2,6 +2,7 @@ package com.fiaptech2024.fastfood.adapter.driver.controllers.cliente;
 
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
+import com.fiaptech2024.fastfood.core.services.cliente.dtos.ClienteServiceSaveClienteDto;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;
@@ -30,8 +31,8 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> create(@RequestBody Cliente cliente) {
-        var clienteResponse = clienteServicePort.saveCliente(cliente);
+    public ResponseEntity<Cliente> create(@RequestBody ClienteServiceSaveClienteDto clienteDto) {
+        var clienteResponse = clienteServicePort.saveCliente(clienteDto);
         return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
     }
 
