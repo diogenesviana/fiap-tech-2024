@@ -14,6 +14,4 @@ public interface PedidoRepositoryPort {
     public List<PedidoDTO> listar(PedidoStatus pedidoStatus);
 
     public Pedido getById(UUID id);
-
-    public void realizarPagamento(Pedido pedido);
 }

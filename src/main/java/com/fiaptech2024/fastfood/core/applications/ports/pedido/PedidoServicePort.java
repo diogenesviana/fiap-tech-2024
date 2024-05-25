@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface PedidoServicePort {
 
-    public UUID criarPedido(PedidoServiceCriarPedidoDto pedidoServiceCriarPedidoDto);
+    public void criarPedido(PedidoServiceCriarPedidoDto pedidoServiceCriarPedidoDto);
 
     public List<PedidoDTO> listar(PedidoStatus pedidoStatus);
 }

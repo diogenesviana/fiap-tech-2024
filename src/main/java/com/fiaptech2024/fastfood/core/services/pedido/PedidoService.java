@@ -34,22 +34,21 @@ public class PedidoService implements PedidoServicePort {
     }
 
     @Override
-    public UUID criarPedido(PedidoServiceCriarPedidoDto pedidoServiceCriarPedidoDto) {
+    public void criarPedido(PedidoServiceCriarPedidoDto pedidoServiceCriarPedidoDto) {
         Cliente cliente = this.clienteRepositoryPort.getClienteById(pedidoServiceCriarPedidoDto.cliente_id());
         if (cliente == null) {
-            throw new EntityNotFoundException("CLiente não encontrado");
+            throw new RegraDeNegocioException("Cliente não encontrado");
         }
-        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.AGUARDANDO);
+        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO);
         for (PedidoServiceCriarPedidoItemDto pedidoServiceItemDto : pedidoServiceCriarPedidoDto.itens()) {
             Produto produto = this.produtoRepositoryPort.getById(pedidoServiceItemDto.item_id());
             if (produto == null) {
-                throw new EntityNotFoundException("Item do pedido não encontrado");
+                throw new RegraDeNegocioException("Item do pedido não encontrado");
             }
             pedido.addItem(new PedidoItem(pedidoServiceItemDto.item_id(), produto.getPreco(), pedidoServiceItemDto.quantidade()));
         }
         this.check(pedido);
         this.pedidoRepositoryPort.criarPedido(pedido);
-        return pedido.getId();
     }
 
     private void check(Pedido pedido) {

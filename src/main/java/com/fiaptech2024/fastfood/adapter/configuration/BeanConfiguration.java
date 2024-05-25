@@ -2,13 +2,11 @@ package com.fiaptech2024.fastfood.adapter.configuration;
 
 import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
-import com.fiaptech2024.fastfood.core.applications.ports.pagamento.PagamentoServicePort;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoRepositoryPort;
 import com.fiaptech2024.fastfood.core.applications.ports.produto.ProdutoServicePort;
 import com.fiaptech2024.fastfood.core.services.cliente.ClienteService;
-import com.fiaptech2024.fastfood.core.services.pagamento.PagamentoService;
 import com.fiaptech2024.fastfood.core.services.produto.ProdutoService;
 import com.fiaptech2024.fastfood.core.services.pedido.PedidoService;
 import org.modelmapper.ModelMapper;
@@ -36,11 +34,6 @@ public class BeanConfiguration {
     @Bean
     public PedidoServicePort pedidoServiceImpl(PedidoRepositoryPort pedidoRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort, ClienteRepositoryPort clienteRepositoryPort) {
         return new PedidoService(pedidoRepositoryPort, produtoRepositoryPort, clienteRepositoryPort);
-    }
-
-    @Bean
-    public PagamentoServicePort pagamentoServiceImp(PedidoRepositoryPort pedidoRepositoryPort) {
-        return new PagamentoService(pedidoRepositoryPort);
     }
 
 }

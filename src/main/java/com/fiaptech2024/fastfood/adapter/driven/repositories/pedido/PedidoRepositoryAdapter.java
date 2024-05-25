@@ -102,9 +102,4 @@ public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
         return pedido;
     }
 
-    @Transactional
-    @Override
-    public void realizarPagamento(Pedido pedido) {
-        this.pedidoRepository.realizarPagamento(pedido.getId(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO);
-    }
 }

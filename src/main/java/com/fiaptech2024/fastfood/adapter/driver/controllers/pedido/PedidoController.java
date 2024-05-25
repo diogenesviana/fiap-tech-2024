@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("pedido")
@@ -22,11 +19,9 @@ public class PedidoController {
     private final PedidoServicePort pedidoServicePort;
 
     @PostMapping
-    public ResponseEntity<Map<String, UUID>> create(@RequestBody PedidoServiceCriarPedidoDto pedidoServiceDto) {
-        UUID uuid = this.pedidoServicePort.criarPedido(pedidoServiceDto);
-        Map<String, UUID> response = new HashMap<>();
-        response.put("id", uuid);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    public ResponseEntity create(@RequestBody PedidoServiceCriarPedidoDto pedidoServiceDto) {
+        this.pedidoServicePort.criarPedido(pedidoServiceDto);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("/{pedidoStatus}")
