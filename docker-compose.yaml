@@ -6,7 +6,7 @@ services:
       container_name: mysql-db
       restart: always
       ports:
-         - "3306:3306"
+         - "3306"
       environment:
          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
          MYSQL_DATABASE: ${MYSQL_DATABASE:-db}
@@ -23,12 +23,12 @@ services:
       container_name: java-app
       restart: always
       ports:
-         - "8080:8080"
-         - "5005:5005"
+         - "8080"
+         - "5005"
       environment:
-         SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/db
-         SPRING_DATASOURCE_USERNAME: admin
-         SPRING_DATASOURCE_PASSWORD: admin
+         SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-db}
+         SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-admin}
+         SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-admin}
          JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       depends_on:
          - mysql
