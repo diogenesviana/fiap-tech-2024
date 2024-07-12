@@ -15,11 +15,11 @@ public class Cliente {
 
     private Instant dataCriacao;
 
-    public Cliente(){
+    public Cliente() {
 
     }
 
-    public Cliente(UUID id, String nome, String cpf, String email, Instant dataCriacao){
+    public Cliente(UUID id, String nome, String cpf, String email, Instant dataCriacao) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -65,6 +65,6 @@ public class Cliente {
 
     public void setDataCriacao(Instant dataCriacao) {
         this.dataCriacao = dataCriacao;
-    } 
+    }
 
 }

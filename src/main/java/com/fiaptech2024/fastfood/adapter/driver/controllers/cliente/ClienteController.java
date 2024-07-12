@@ -1,5 +1,15 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.cliente;
 
+import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetCliente;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteInput;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteOutput;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteByCpf.GetClienteByCpf;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteByCpf.GetClienteByCpfInput;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteByCpf.GetClienteByCpfOutput;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarCliente;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarClienteInput;
+import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarClienteOutput;
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
 import com.fiaptech2024.fastfood.core.services.cliente.dtos.ClienteServiceSaveClienteDto;
@@ -18,22 +28,27 @@ public class ClienteController {
 
     private final ClienteServicePort clienteServicePort;
 
+    private final ClienteRepositoryInterface clienteRepositoryInterface;
+
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> get(@PathVariable("id") UUID id) {
-        var clienteResponse = clienteServicePort.getClienteById(id);
-        return new ResponseEntity<>(clienteResponse, HttpStatus.OK);
+    public ResponseEntity<GetClienteOutput> get(@PathVariable("id") UUID id) {
+        GetCliente getCliente = new GetCliente(this.clienteRepositoryInterface);
+        GetClienteOutput output = getCliente.execute(new GetClienteInput(id));
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Cliente> searchCliente(@RequestParam("cpf") String cpf) {
-        var clienteResponse = clienteServicePort.getClienteByCpf(cpf);
-        return new ResponseEntity<>(clienteResponse, HttpStatus.OK);
+    public ResponseEntity<GetClienteByCpfOutput> searchCliente(@RequestParam("cpf") String cpf) {
+        GetClienteByCpf getClienteByCpf = new GetClienteByCpf(this.clienteRepositoryInterface);
+        GetClienteByCpfOutput output = getClienteByCpf.execute(new GetClienteByCpfInput(cpf));
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> create(@RequestBody ClienteServiceSaveClienteDto clienteDto) {
-        var clienteResponse = clienteServicePort.saveCliente(clienteDto);
-        return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
+    public ResponseEntity<SalvarClienteOutput> create(@RequestBody SalvarClienteInput input) {
+        SalvarCliente salvarCliente = new SalvarCliente(this.clienteRepositoryInterface);
+        SalvarClienteOutput output = salvarCliente.execute(input);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
 }
