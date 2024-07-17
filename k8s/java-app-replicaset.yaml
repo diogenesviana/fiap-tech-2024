@@ -6,11 +6,11 @@ spec:
    replicas: 2
    selector:
       matchLabels:
-         io.kompose.service: java-app
+         app: java-app
    template:
       metadata:
          labels:
-            io.kompose.service: java-app
+            app: java-app
       spec:
          containers:
             - env:
