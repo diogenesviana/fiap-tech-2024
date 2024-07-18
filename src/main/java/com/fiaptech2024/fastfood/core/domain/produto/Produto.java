@@ -1,6 +1,7 @@
 package com.fiaptech2024.fastfood.core.domain.produto;
 
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
+import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -40,6 +41,9 @@ public class Produto {
     }
 
     public void setNome(String nome) {
+        if(nome == null || nome.isBlank()){
+            throw new RegraDeNegocioException("Nome não pode ser nulo");
+        }
         this.nome = nome;
     }
 
@@ -48,6 +52,9 @@ public class Produto {
     }
 
     public void setPreco(BigDecimal preco) {
+        if (preco == null || preco.compareTo(BigDecimal.ZERO) < 0) {
+            throw new RegraDeNegocioException("Preço não pode ser nulo ou negativo");
+        }
         this.preco = preco;
     }
 
@@ -57,6 +64,9 @@ public class Produto {
     }
 
     public void setTipoProduto(TipoProduto tipoProduto) {
+        if(tipoProduto == null){
+            throw new RegraDeNegocioException("Tipo de produto não pode ser nulo");
+        }
         this.tipoProduto = tipoProduto;
     }
 }
