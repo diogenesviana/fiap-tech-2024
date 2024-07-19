@@ -12,21 +12,24 @@ spec:
          labels:
             app: java-app
       spec:
+         restartPolicy: Always
          containers:
-            - env:
+            - name: java-app
+              image: filipeborba/fast-food-app:v4
+              env:
                  - name: SPRING_DATASOURCE_PASSWORD
                    value: admin
                  - name: SPRING_DATASOURCE_URL
                    value: jdbc:mysql://mysql:3306/db
                  - name: SPRING_DATASOURCE_USERNAME
                    value: admin
-              image: filipeborba/fast-food-app:v4
-              name: java-app
               ports:
                  - containerPort: 8080
                    protocol: TCP
               resources:
                  requests:
-                    memory: "64Mi"
+                    memory: "128Mi"
                     cpu: "250m"
-         restartPolicy: Always
+                 limits:
+                    memory: "256Mi"
+                    cpu: "500m"

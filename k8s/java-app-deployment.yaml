@@ -14,6 +14,7 @@ spec:
          labels:
             app: java-app
       spec:
+         restartPolicy: Always
          containers:
             - name: java-app
               image: filipeborba/fast-food-app:v4
@@ -29,7 +30,8 @@ spec:
                    protocol: TCP
               resources:
                  requests:
-                    memory: "64Mi"
+                    memory: "128Mi"
                     cpu: "250m"
-
-         restartPolicy: Always
+                 limits:
+                    memory: "256Mi"
+                    cpu: "500m"
