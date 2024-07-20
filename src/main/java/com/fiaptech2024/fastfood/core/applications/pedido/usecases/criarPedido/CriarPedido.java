@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.core.applications.pedido.usecases;
+package com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;

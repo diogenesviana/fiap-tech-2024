@@ -1,18 +1,14 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.pedido;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetCliente;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteInput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteOutput;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.CriarPedido;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.CriarPedidoInput;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.CriarPedidoOutput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedido;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoInput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoOutput;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPedidoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
