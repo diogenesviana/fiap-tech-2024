@@ -40,7 +40,7 @@ public class CriarPedido {
         }
         this.check(pedido);
         this.pedidoRepository.criarPedido(pedido);
-        return new CriarPedidoOutput();
+        return new CriarPedidoOutput(pedido.getId());
     }
 
     private void check(Pedido pedido) {

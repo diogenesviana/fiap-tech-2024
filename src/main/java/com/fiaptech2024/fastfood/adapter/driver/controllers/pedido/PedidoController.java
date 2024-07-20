@@ -31,10 +31,10 @@ public class PedidoController {
     private final ProdutoRepositoryInterface produtoRepositoryInterface;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CriarPedidoInput input) {
+    public ResponseEntity <CriarPedidoOutput> create(@RequestBody CriarPedidoInput input) {
         CriarPedido criarPedido = new CriarPedido(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         CriarPedidoOutput output = criarPedido.execute(input);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(output, HttpStatus.CREATED);
     }
 
     @GetMapping("/{pedidoStatus}")
