@@ -5,6 +5,9 @@ import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRep
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedido;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoInput;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoOutput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatus;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusInput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusOutput;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
@@ -34,15 +37,11 @@ public class PedidoController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    /*@PostMapping
-    public ResponseEntity create(@RequestBody PedidoServiceCriarPedidoDto pedidoServiceDto) {
-        this.pedidoServicePort.criarPedido(pedidoServiceDto);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }*/
-
     @GetMapping("/{pedidoStatus}")
-    public ResponseEntity <List<PedidoDTO>> listar(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
-        return new ResponseEntity<>(pedidoServicePort.listar(pedidoStatus), HttpStatus.OK);
+    public ResponseEntity <List<GetPedidoByStatusOutput>> listar(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
+        GetPedidoByStatusInput input = new GetPedidoByStatusInput(pedidoStatus);
+        GetPedidoByStatus getPedidoByStatus = new GetPedidoByStatus(this.pedidoRepositoryInterace);
+        return new ResponseEntity<>(getPedidoByStatus.execute(input), HttpStatus.OK);
     }
 
 }

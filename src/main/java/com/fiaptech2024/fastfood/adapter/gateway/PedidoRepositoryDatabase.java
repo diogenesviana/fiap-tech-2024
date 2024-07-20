@@ -9,9 +9,15 @@ import com.fiaptech2024.fastfood.adapter.driven.repositories.pedido.PedidoReposi
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
+import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoItemDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -49,6 +55,28 @@ public class PedidoRepositoryDatabase implements PedidoRepositoryInterace {
         }
 
         return pedido;
+    }
+
+    @Override
+    public List<Pedido> listar(PedidoStatus pedidoStatus) {
+        List<PedidoEntity> listaDePedidos = pedidoRepository.listarPorStatus(pedidoStatus);
+        List<Pedido> listaDePedidosDTO = new ArrayList<>();
+        for (PedidoEntity pedidoEntity : listaDePedidos) {
+            Pedido pedido = new Pedido(
+                    pedidoEntity.getId(),
+                    pedidoEntity.getCliente().getId(),
+                    pedidoEntity.getPedidoStatus(),
+                    pedidoEntity.getStatusPagamento()
+            );
+            for (PedidoItemEntity pedidoItemEntity : pedidoEntity.getItens()) {
+                PedidoItem pedidoItem = new PedidoItem(pedidoItemEntity.getProduto().getId(),
+                        pedidoItemEntity.getProduto().getPreco(),
+                        pedidoItemEntity.getQuantidade()
+                );
+                pedido.addItem(pedidoItem);
+            }
+        }
+        return listaDePedidosDTO;
     }
 
 }
