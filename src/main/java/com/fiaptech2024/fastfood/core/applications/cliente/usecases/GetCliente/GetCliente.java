@@ -1,8 +1,8 @@
 package com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
+import com.fiaptech2024.fastfood.core.applications.exception.EntityNotFoundException;
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
-import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
 public class GetCliente {
 

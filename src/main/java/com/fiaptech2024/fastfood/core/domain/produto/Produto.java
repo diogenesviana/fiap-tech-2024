@@ -1,7 +1,7 @@
 package com.fiaptech2024.fastfood.core.domain.produto;
 
+import com.fiaptech2024.fastfood.core.applications.exception.RegraDeNegocioException;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
-import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 
 import java.math.BigDecimal;
 import java.util.UUID;

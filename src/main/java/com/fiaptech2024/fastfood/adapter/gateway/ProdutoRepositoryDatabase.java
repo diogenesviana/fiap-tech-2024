@@ -3,10 +3,10 @@ package com.fiaptech2024.fastfood.adapter.gateway;
 
 import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
 import com.fiaptech2024.fastfood.adapter.driven.repositories.produto.ProdutoRepository;
+import com.fiaptech2024.fastfood.core.applications.exception.EntityNotFoundException;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
-import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

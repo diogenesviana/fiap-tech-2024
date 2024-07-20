@@ -1,12 +1,8 @@
 package com.fiaptech2024.fastfood.core.applications.produto.usecases.GetProduto;
 
-import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteInput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteOutput;
+import com.fiaptech2024.fastfood.core.applications.exception.EntityNotFoundException;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
-import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
-import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
