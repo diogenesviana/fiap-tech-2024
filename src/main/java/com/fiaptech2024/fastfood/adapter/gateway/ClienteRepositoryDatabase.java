@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.adapter.infra;
+package com.fiaptech2024.fastfood.adapter.gateway;
 
 import com.fiaptech2024.fastfood.adapter.driven.entities.cliente.ClienteEntity;
 import com.fiaptech2024.fastfood.adapter.driven.repositories.cliente.ClienteRepository;
