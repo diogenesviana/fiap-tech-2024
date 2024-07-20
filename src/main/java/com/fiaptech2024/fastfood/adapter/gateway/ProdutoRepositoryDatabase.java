@@ -57,4 +57,17 @@ public class ProdutoRepositoryDatabase implements ProdutoRepositoryInterface {
 
         }
     }
+
+    @Override
+    public Produto getById(UUID id) {
+        Optional<ProdutoEntity> produtoEntity = this.produtoRepository.findById(id);
+        if (produtoEntity.isEmpty()) {
+            return null;
+        }
+        return this.converterProdutoEntityParaProduto(produtoEntity.get());
+    }
+
+    public Produto converterProdutoEntityParaProduto(ProdutoEntity produtoEntity) {
+        return modelMapper.map(produtoEntity, Produto.class);
+    }
 }

@@ -16,4 +16,6 @@ public interface ProdutoRepositoryInterface {
     void deleteProdutoById(UUID id);
 
     void update(UUID id, String nome, BigDecimal preco, TipoProduto tipoProduto);
+
+    Produto getById(UUID id);
 }
