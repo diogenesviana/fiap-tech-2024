@@ -16,6 +16,7 @@ import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPed
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPedidoItemDto;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class PedidoService implements PedidoServicePort {
         if (cliente == null) {
             throw new RegraDeNegocioException("Cliente não encontrado");
         }
-        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO);
+        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO, Instant.now());
         for (PedidoServiceCriarPedidoItemDto pedidoServiceItemDto : pedidoServiceCriarPedidoDto.itens()) {
             Produto produto = this.produtoRepositoryPort.getById(pedidoServiceItemDto.item_id());
             if (produto == null) {

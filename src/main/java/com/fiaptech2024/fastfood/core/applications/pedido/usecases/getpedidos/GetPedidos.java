@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus;
+package com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
@@ -6,35 +6,39 @@ import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoR
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class GetPedidoByStatus {
+public class GetPedidos {
 
     private final PedidoRepositoryInterace pedidoRepository;
     private final ClienteRepositoryInterface clienteRepository;
     private final ProdutoRepositoryInterface produtoRepository;
 
-    public GetPedidoByStatus(PedidoRepositoryInterace pedidoRepository, ClienteRepositoryInterface clienteRepository, ProdutoRepositoryInterface produtoRepository) {
+    public GetPedidos(PedidoRepositoryInterace pedidoRepository, ClienteRepositoryInterface clienteRepository, ProdutoRepositoryInterface produtoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.clienteRepository = clienteRepository;
         this.produtoRepository = produtoRepository;
     }
 
-    public List<GetPedidoByStatusOutput> execute(GetPedidoByStatusInput input) {
-        List<Pedido> pedidos = this.pedidoRepository.listarPorStatus(input.pedidoStatus());
-        List<GetPedidoByStatusOutput> pedidosOutput = new ArrayList<>();
+    public List<GetPedidosOutput> execute() {
+        List<Pedido> pedidos = this.pedidoRepository.listar();
+        List<GetPedidosOutput> pedidosOutput = new ArrayList<>();
         for (Pedido pedido : pedidos) {
             Cliente cliente = this.clienteRepository.getClienteById(pedido.getClienteId());
-            List<GetPedidoByStatusItemOutput> outputItens = new ArrayList<>();
+            List<GetPedidosItemOutput> outputItens = new ArrayList<>();
             for (PedidoItem pedidoItem : pedido.getItems()) {
                 Produto produto = this.produtoRepository.getById(pedidoItem.getItemId());
-                outputItens.add(new GetPedidoByStatusItemOutput(pedidoItem.getItemId(), produto.getNome(), pedidoItem.getQuantidade(), pedido.getValor()));
+                outputItens.add(new GetPedidosItemOutput(pedidoItem.getItemId(), produto.getNome(), pedidoItem.getQuantidade(), pedido.getValor()));
             }
             pedidosOutput.add(
-                    new GetPedidoByStatusOutput(
+                    new GetPedidosOutput(
                             pedido.getId(),
                             pedido.getClienteId(),
                             cliente.getNome(),

@@ -8,9 +8,10 @@ import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.C
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatus;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusInput;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusOutput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos.GetPedidos;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos.GetPedidosOutput;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,10 +39,16 @@ public class PedidoController {
     }
 
     @GetMapping("/{pedidoStatus}")
-    public ResponseEntity <List<GetPedidoByStatusOutput>> listar(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
+    public ResponseEntity <List<GetPedidoByStatusOutput>> listarPorStatus(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
         GetPedidoByStatusInput input = new GetPedidoByStatusInput(pedidoStatus);
-        GetPedidoByStatus getPedidoByStatus = new GetPedidoByStatus(this.pedidoRepositoryInterace);
+        GetPedidoByStatus getPedidoByStatus = new GetPedidoByStatus(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         return new ResponseEntity<>(getPedidoByStatus.execute(input), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity <List<GetPedidosOutput>> listar() {
+        GetPedidos getPedidos = new GetPedidos(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        return new ResponseEntity<>(getPedidos.execute(), HttpStatus.OK);
     }
 
 }
