@@ -40,7 +40,7 @@ public class PedidoService implements PedidoServicePort {
         if (cliente == null) {
             throw new RegraDeNegocioException("Cliente não encontrado");
         }
-        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO, Instant.now());
+        Pedido pedido = new Pedido(UUID.randomUUID(), pedidoServiceCriarPedidoDto.cliente_id(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO);
         for (PedidoServiceCriarPedidoItemDto pedidoServiceItemDto : pedidoServiceCriarPedidoDto.itens()) {
             Produto produto = this.produtoRepositoryPort.getById(pedidoServiceItemDto.item_id());
             if (produto == null) {
