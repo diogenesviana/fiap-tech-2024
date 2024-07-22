@@ -11,6 +11,7 @@ import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 
+import java.time.Instant;
 import java.util.UUID;
 
 public class CriarPedido {
@@ -30,7 +31,7 @@ public class CriarPedido {
         if (cliente == null) {
             throw new RegraDeNegocioException("Cliente não encontrado");
         }
-        Pedido pedido = new Pedido(UUID.randomUUID(), input.cliente_id(), PedidoStatus.FINALIZADO, StatusPagamento.PAGO);
+        Pedido pedido = new Pedido(UUID.randomUUID(), input.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.PAGO, Instant.now());
         for (CriarPedidoItemInput inputItem : input.itens()) {
             Produto produto = this.produtoRepository.getById(inputItem.item_id());
             if (produto == null) {
@@ -40,7 +41,7 @@ public class CriarPedido {
         }
         this.check(pedido);
         this.pedidoRepository.criarPedido(pedido);
-        return new CriarPedidoOutput();
+        return new CriarPedidoOutput(pedido.getId());
     }
 
     private void check(Pedido pedido) {

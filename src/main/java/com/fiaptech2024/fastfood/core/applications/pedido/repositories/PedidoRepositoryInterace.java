@@ -4,14 +4,13 @@ import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface PedidoRepositoryInterace {
 
     public Pedido criarPedido(Pedido pedido);
 
-    public List<Pedido> listar(PedidoStatus pedidoStatus);
+    public List<Pedido> listarPorStatus(PedidoStatus pedidoStatus);
 
-//    public Pedido getById(UUID id);
+    public List<Pedido> listar();
 
 }
