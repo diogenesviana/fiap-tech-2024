@@ -10,8 +10,6 @@ import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRep
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoItemDTO;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

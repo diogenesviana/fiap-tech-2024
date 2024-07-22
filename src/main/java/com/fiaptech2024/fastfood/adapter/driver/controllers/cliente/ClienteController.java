@@ -10,9 +10,6 @@ import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteBy
 import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarCliente;
 import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarClienteInput;
 import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarClienteOutput;
-import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
-import com.fiaptech2024.fastfood.core.applications.ports.cliente.ClienteServicePort;
-import com.fiaptech2024.fastfood.core.services.cliente.dtos.ClienteServiceSaveClienteDto;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;
@@ -25,8 +22,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("cliente")
 @AllArgsConstructor
 public class ClienteController {
-
-    private final ClienteServicePort clienteServicePort;
 
     private final ClienteRepositoryInterface clienteRepositoryInterface;
 

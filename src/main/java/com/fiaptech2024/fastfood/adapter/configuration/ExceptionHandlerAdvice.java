@@ -1,12 +1,10 @@
 package com.fiaptech2024.fastfood.adapter.configuration;
 
+import com.fiaptech2024.fastfood.core.applications.exception.EntityNotFoundException;
+import com.fiaptech2024.fastfood.core.applications.exception.RegraDeNegocioException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
-import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
-
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {

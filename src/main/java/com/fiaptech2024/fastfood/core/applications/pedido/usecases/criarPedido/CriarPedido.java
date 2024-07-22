@@ -1,6 +1,7 @@
 package com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
+import com.fiaptech2024.fastfood.core.applications.exception.RegraDeNegocioException;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
@@ -9,7 +10,6 @@ import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
-import com.fiaptech2024.fastfood.core.services.exception.RegraDeNegocioException;
 
 import java.time.Instant;
 import java.util.UUID;
