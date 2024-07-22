@@ -1,9 +1,18 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.pedido;
 
+import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
+import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedido;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoInput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoOutput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatus;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusInput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusOutput;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos.GetPedidos;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos.GetPedidosOutput;
+import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoDTO;
 import com.fiaptech2024.fastfood.core.applications.ports.pedido.PedidoServicePort;
-import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPedidoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +27,28 @@ public class PedidoController {
 
     private final PedidoServicePort pedidoServicePort;
 
+    private final PedidoRepositoryInterace pedidoRepositoryInterace;
+    private final ClienteRepositoryInterface clienteRepositoryInterface;
+    private final ProdutoRepositoryInterface produtoRepositoryInterface;
+
     @PostMapping
-    public ResponseEntity create(@RequestBody PedidoServiceCriarPedidoDto pedidoServiceDto) {
-        this.pedidoServicePort.criarPedido(pedidoServiceDto);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity <CriarPedidoOutput> create(@RequestBody CriarPedidoInput input) {
+        CriarPedido criarPedido = new CriarPedido(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        CriarPedidoOutput output = criarPedido.execute(input);
+        return new ResponseEntity(output, HttpStatus.CREATED);
     }
 
     @GetMapping("/{pedidoStatus}")
-    public ResponseEntity <List<PedidoDTO>> listar(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
-        return new ResponseEntity<>(pedidoServicePort.listar(pedidoStatus), HttpStatus.OK);
+    public ResponseEntity <List<GetPedidoByStatusOutput>> listarPorStatus(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
+        GetPedidoByStatusInput input = new GetPedidoByStatusInput(pedidoStatus);
+        GetPedidoByStatus getPedidoByStatus = new GetPedidoByStatus(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        return new ResponseEntity<>(getPedidoByStatus.execute(input), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity <List<GetPedidosOutput>> listar() {
+        GetPedidos getPedidos = new GetPedidos(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        return new ResponseEntity<>(getPedidos.execute(), HttpStatus.OK);
     }
 
 }

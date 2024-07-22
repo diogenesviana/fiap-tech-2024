@@ -16,6 +16,7 @@ import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPed
 import com.fiaptech2024.fastfood.core.services.pedido.dtos.PedidoServiceCriarPedidoItemDto;
 import com.fiaptech2024.fastfood.core.services.exception.EntityNotFoundException;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 

@@ -4,6 +4,7 @@ import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,13 +19,16 @@ public class Pedido {
 
     private StatusPagamento statusPagamento;
 
+    private Instant dataCriacao;
+
     private List<PedidoItem> items;
 
-    public Pedido(UUID id, UUID clienteId, PedidoStatus status, StatusPagamento statusPagamento) {
+    public Pedido(UUID id, UUID clienteId, PedidoStatus status, StatusPagamento statusPagamento, Instant dataCriacao) {
         this.id = id;
         this.clienteId = clienteId;
         this.status = status;
         this.statusPagamento = statusPagamento;
+        this.dataCriacao = dataCriacao;
         this.items = new ArrayList<>();
     }
 
@@ -44,6 +48,10 @@ public class Pedido {
         return statusPagamento;
     }
 
+    public Instant getDataCriacao() {
+        return dataCriacao;
+    }
+
     public List<PedidoItem> getItems() {
         return this.items;
     }
@@ -61,7 +69,7 @@ public class Pedido {
     }
 
     public void setStatus(PedidoStatus status) {
-        this.status=status;
+        this.status = status;
     }
 
     public void setStatusPagamento(StatusPagamento statusPagamento) {
