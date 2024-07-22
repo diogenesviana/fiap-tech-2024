@@ -90,7 +90,8 @@ public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
                 pedidoEntity.get().getId(),
                 pedidoEntity.get().getCliente().getId(),
                 pedidoEntity.get().getPedidoStatus(),
-                pedidoEntity.get().getStatusPagamento()
+                pedidoEntity.get().getStatusPagamento(),
+                pedidoEntity.get().getDataCriacao()
         );
         for (PedidoItemEntity pedidoItemEntity : pedidoEntity.get().getItens()) {
             pedido.addItem(new PedidoItem(

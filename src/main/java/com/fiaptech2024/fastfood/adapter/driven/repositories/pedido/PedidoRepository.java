@@ -13,4 +13,6 @@ public interface PedidoRepository extends JpaRepository<PedidoEntity, UUID> {
     @Query(value = "SELECT p FROM PedidoEntity p WHERE p.pedidoStatus = :pedidoStatus")
     List<PedidoEntity> listarPorStatus(PedidoStatus pedidoStatus);
 
+    @Query("SELECT p FROM PedidoEntity p WHERE p.pedidoStatus IN ('PRONTO', 'EM_PREPARACAO', 'RECEBIDO') ORDER BY FIELD(p.pedidoStatus, 'PRONTO', 'EM_PREPARACAO', 'RECEBIDO'), p.dataCriacao")
+    List<PedidoEntity> listar();
 }
