@@ -1,6 +1,8 @@
-package com.fiaptech2024.fastfood.core.applications.produto.usecases.deletarProduto;
+package com.fiaptech2024.fastfood.core.applications.produto.usecases;
 
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
+
+import java.util.UUID;
 
 public class DeletarProduto {
 
@@ -10,9 +12,8 @@ public class DeletarProduto {
         this.produtoRepository = produtoRepository;
     }
 
-    public void execute(DeletarProdutoInput input) {
-        this.produtoRepository.deleteProdutoById(input.id());
+    public void execute(UUID id) {
+        this.produtoRepository.deleteProdutoById(id);
     }
-
 
 }

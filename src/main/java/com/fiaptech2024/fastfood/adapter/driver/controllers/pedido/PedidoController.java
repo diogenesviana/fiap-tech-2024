@@ -5,11 +5,6 @@ import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRep
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedido;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoInput;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoOutput;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatus;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusInput;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getPedidosByStatus.GetPedidoByStatusOutput;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos.GetPedidos;
-import com.fiaptech2024.fastfood.core.applications.pedido.usecases.getpedidos.GetPedidosOutput;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import lombok.AllArgsConstructor;
@@ -32,20 +27,19 @@ public class PedidoController {
     public ResponseEntity <CriarPedidoOutput> create(@RequestBody CriarPedidoInput input) {
         CriarPedido criarPedido = new CriarPedido(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         CriarPedidoOutput output = criarPedido.execute(input);
-        return new ResponseEntity(output, HttpStatus.CREATED);
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
     @GetMapping("/{pedidoStatus}")
-    public ResponseEntity <List<GetPedidoByStatusOutput>> listarPorStatus(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
-        GetPedidoByStatusInput input = new GetPedidoByStatusInput(pedidoStatus);
-        GetPedidoByStatus getPedidoByStatus = new GetPedidoByStatus(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
-        return new ResponseEntity<>(getPedidoByStatus.execute(input), HttpStatus.OK);
+    public ResponseEntity <List<Object>> listarPorStatus(@PathVariable("pedidoStatus") PedidoStatus pedidoStatus){
+        com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        return new ResponseEntity<>(pedidoController.listarPorStatus(pedidoStatus), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity <List<GetPedidosOutput>> listar() {
-        GetPedidos getPedidos = new GetPedidos(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
-        return new ResponseEntity<>(getPedidos.execute(), HttpStatus.OK);
+    public ResponseEntity <List<Object>> listar() {
+        com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        return new ResponseEntity<>(pedidoController.listar(), HttpStatus.OK);
     }
 
 }

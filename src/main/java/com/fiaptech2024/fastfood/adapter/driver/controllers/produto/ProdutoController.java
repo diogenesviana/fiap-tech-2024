@@ -1,16 +1,8 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.produto;
 
+import com.fiaptech2024.fastfood.adapter.driver.controllers.produto.requests.ProdutoCreateRequest;
+import com.fiaptech2024.fastfood.adapter.driver.controllers.produto.requests.ProdutoUpdateRequest;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.GetProduto.GetProduto;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.GetProduto.GetProdutoInput;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.GetProduto.GetProdutoOutput;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.SalvarProduto.SalvarProduto;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.SalvarProduto.SalvarProdutoInput;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.SalvarProduto.SalvarProdutoOutput;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.atualizarProduto.AtualizarProduto;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.atualizarProduto.AtualizarProdutoInput;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.deletarProduto.DeletarProduto;
-import com.fiaptech2024.fastfood.core.applications.produto.usecases.deletarProduto.DeletarProdutoInput;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import com.fiaptech2024.fastfood.core.domain.produto.enums.TipoProduto;
 import lombok.AllArgsConstructor;
@@ -18,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,30 +20,28 @@ public class ProdutoController {
     private final ProdutoRepositoryInterface produtoRepositoryInterface;
 
     @PostMapping
-    public ResponseEntity<SalvarProdutoOutput> create(@RequestBody SalvarProdutoInput input){
-        SalvarProduto salvarProduto = new SalvarProduto(this.produtoRepositoryInterface);
-        SalvarProdutoOutput output = salvarProduto.execute(input);
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
+    public ResponseEntity<Object> create(@RequestBody ProdutoCreateRequest request) {
+        com.fiaptech2024.fastfood.adapters.controllers.ProdutoController produtoController = new com.fiaptech2024.fastfood.adapters.controllers.ProdutoController(this.produtoRepositoryInterface);
+        return new ResponseEntity<>(produtoController.salvar(request.nome(), request.preco(), request.tipoProduto()), HttpStatus.CREATED);
     }
 
     @GetMapping("/tipo/{tipoProduto}")
-    public ResponseEntity<List<GetProdutoOutput>> findByTipoProduto(@PathVariable("tipoProduto") TipoProduto tipoProduto) {
-        GetProduto getProduto = new GetProduto(this.produtoRepositoryInterface);
-        List<GetProdutoOutput> output = getProduto.execute(new GetProdutoInput(tipoProduto));
-        return new ResponseEntity<>(output, HttpStatus.OK);
+    public ResponseEntity<Object> findByTipoProduto(@PathVariable("tipoProduto") TipoProduto tipoProduto) {
+        com.fiaptech2024.fastfood.adapters.controllers.ProdutoController produtoController = new com.fiaptech2024.fastfood.adapters.controllers.ProdutoController(this.produtoRepositoryInterface);
+        return new ResponseEntity<>(produtoController.findByTipoProduto(tipoProduto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
-        DeletarProduto deletarProduto = new DeletarProduto(this.produtoRepositoryInterface);
-        deletarProduto.execute(new DeletarProdutoInput(id));
+        com.fiaptech2024.fastfood.adapters.controllers.ProdutoController produtoController = new com.fiaptech2024.fastfood.adapters.controllers.ProdutoController(this.produtoRepositoryInterface);
+        produtoController.deletar(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> update(@PathVariable("id") UUID id, @RequestBody AtualizarProdutoInput input) {
-        AtualizarProduto atualizarProduto = new AtualizarProduto(this.produtoRepositoryInterface);
-        atualizarProduto.execute(id, input);
+    public ResponseEntity<Produto> update(@PathVariable("id") UUID id, @RequestBody ProdutoUpdateRequest request) {
+        com.fiaptech2024.fastfood.adapters.controllers.ProdutoController produtoController = new com.fiaptech2024.fastfood.adapters.controllers.ProdutoController(this.produtoRepositoryInterface);
+        produtoController.atualizar(id, request.nome(), request.preco(), request.tipoProduto());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

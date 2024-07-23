@@ -1,4 +1,4 @@
-package com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente;
+package com.fiaptech2024.fastfood.core.applications.cliente.usecases;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
@@ -14,16 +14,10 @@ public class SalvarCliente {
         this.clienteRepository = clienteRepository;
     }
 
-    public SalvarClienteOutput execute(SalvarClienteInput input) {
-        Cliente cliente = new Cliente(UUID.randomUUID(), input.nome(), input.cpf(), input.email(), Instant.now());
+    public Cliente execute(String nome, String cpf, String email) {
+        Cliente cliente = new Cliente(UUID.randomUUID(), nome, cpf, email, Instant.now());
         cliente = this.clienteRepository.saveCliente(cliente);
-        return new SalvarClienteOutput(
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getCpf(),
-                cliente.getEmail(),
-                cliente.getDataCriacao()
-        );
+        return cliente;
     }
 
 }

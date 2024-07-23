@@ -1,5 +1,6 @@
 package com.fiaptech2024.fastfood.core.domain.pedido;
 
+import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 
@@ -12,15 +13,10 @@ import java.util.UUID;
 public class Pedido {
 
     private UUID id;
-
     private UUID clienteId;
-
     private PedidoStatus status;
-
     private StatusPagamento statusPagamento;
-
     private Instant dataCriacao;
-
     private List<PedidoItem> items;
 
     public Pedido(UUID id, UUID clienteId, PedidoStatus status, StatusPagamento statusPagamento, Instant dataCriacao) {
@@ -75,4 +71,5 @@ public class Pedido {
     public void setStatusPagamento(StatusPagamento statusPagamento) {
         this.statusPagamento = statusPagamento;
     }
+
 }

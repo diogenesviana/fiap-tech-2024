@@ -1,8 +1,10 @@
-package com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente;
+package com.fiaptech2024.fastfood.core.applications.cliente.usecases;
 
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.applications.exception.EntityNotFoundException;
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
+
+import java.util.UUID;
 
 public class GetCliente {
 
@@ -12,18 +14,12 @@ public class GetCliente {
         this.clienteRepository = clienteRepository;
     }
 
-    public GetClienteOutput execute(GetClienteInput input) {
-        Cliente cliente = this.clienteRepository.getClienteById(input.id());
+    public Cliente execute(UUID id) {
+        Cliente cliente = this.clienteRepository.getClienteById(id);
         if (cliente == null) {
             throw new EntityNotFoundException("Cliente não encontrado");
         }
-        return new GetClienteOutput(
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getCpf(),
-                cliente.getEmail(),
-                cliente.getDataCriacao()
-        );
+        return cliente;
     }
 
 }

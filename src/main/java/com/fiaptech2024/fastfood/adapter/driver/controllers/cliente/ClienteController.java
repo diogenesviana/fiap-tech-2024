@@ -1,15 +1,7 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.cliente;
 
+import com.fiaptech2024.fastfood.adapter.driver.controllers.cliente.requests.ClienteCreateRequest;
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetCliente;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteInput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetCliente.GetClienteOutput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteByCpf.GetClienteByCpf;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteByCpf.GetClienteByCpfInput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.GetClienteByCpf.GetClienteByCpfOutput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarCliente;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarClienteInput;
-import com.fiaptech2024.fastfood.core.applications.cliente.usecases.SalvarCliente.SalvarClienteOutput;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;
@@ -26,24 +18,21 @@ public class ClienteController {
     private final ClienteRepositoryInterface clienteRepositoryInterface;
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetClienteOutput> get(@PathVariable("id") UUID id) {
-        GetCliente getCliente = new GetCliente(this.clienteRepositoryInterface);
-        GetClienteOutput output = getCliente.execute(new GetClienteInput(id));
-        return new ResponseEntity<>(output, HttpStatus.OK);
+    public ResponseEntity<Object> get(@PathVariable("id") UUID id) {
+        com.fiaptech2024.fastfood.adapters.controllers.ClienteController clienteController = new com.fiaptech2024.fastfood.adapters.controllers.ClienteController(this.clienteRepositoryInterface);
+        return new ResponseEntity<>(clienteController.get(id), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<GetClienteByCpfOutput> searchCliente(@RequestParam("cpf") String cpf) {
-        GetClienteByCpf getClienteByCpf = new GetClienteByCpf(this.clienteRepositoryInterface);
-        GetClienteByCpfOutput output = getClienteByCpf.execute(new GetClienteByCpfInput(cpf));
-        return new ResponseEntity<>(output, HttpStatus.OK);
+    public ResponseEntity<Object> searchCliente(@RequestParam("cpf") String cpf) {
+        com.fiaptech2024.fastfood.adapters.controllers.ClienteController clienteController = new com.fiaptech2024.fastfood.adapters.controllers.ClienteController(this.clienteRepositoryInterface);
+        return new ResponseEntity<>(clienteController.getByCpf(cpf), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<SalvarClienteOutput> create(@RequestBody SalvarClienteInput input) {
-        SalvarCliente salvarCliente = new SalvarCliente(this.clienteRepositoryInterface);
-        SalvarClienteOutput output = salvarCliente.execute(input);
-        return new ResponseEntity<>(output, HttpStatus.CREATED);
+    public ResponseEntity<Object> create(@RequestBody ClienteCreateRequest request) {
+        com.fiaptech2024.fastfood.adapters.controllers.ClienteController clienteController = new com.fiaptech2024.fastfood.adapters.controllers.ClienteController(this.clienteRepositoryInterface);
+        return new ResponseEntity<>(clienteController.salvar(request.nome(), request.cpf(), request.email()), HttpStatus.OK);
     }
 
 }
