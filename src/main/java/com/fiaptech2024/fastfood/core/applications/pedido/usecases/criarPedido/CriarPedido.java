@@ -26,7 +26,7 @@ public class CriarPedido {
         this.produtoRepository = produtoRepository;
     }
 
-    public CriarPedidoOutput execute(CriarPedidoInput input) {
+    public Pedido execute(CriarPedidoInput input) {
         Cliente cliente = this.clienteRepository.getClienteById(input.cliente_id());
         if (cliente == null) {
             throw new RegraDeNegocioException("Cliente não encontrado");
@@ -41,7 +41,7 @@ public class CriarPedido {
         }
         this.check(pedido);
         this.pedidoRepository.criarPedido(pedido);
-        return new CriarPedidoOutput(pedido.getId());
+        return pedido;
     }
 
     private void check(Pedido pedido) {

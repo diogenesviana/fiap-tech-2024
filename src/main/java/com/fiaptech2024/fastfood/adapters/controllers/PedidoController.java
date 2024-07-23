@@ -5,11 +5,16 @@ import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteR
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.GetPedidos;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.GetPedidosByStatus;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedido;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoInput;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 public class PedidoController {
 
@@ -33,6 +38,11 @@ public class PedidoController {
         GetPedidosByStatus getPedidosByStatus = new GetPedidosByStatus(this.pedidoRepository);
         List<Pedido> pedidos = getPedidosByStatus.execute(pedidoStatus);
         return PedidoPresenter.toList(pedidos);
+    }
+
+    public Object criarPedido(CriarPedidoInput input) {
+        CriarPedido criarPedido = new CriarPedido(this.pedidoRepository, this.clienteRepository, this.produtoRepository);
+        return PedidoPresenter.toObject(criarPedido.execute(input));
     }
 
 }
