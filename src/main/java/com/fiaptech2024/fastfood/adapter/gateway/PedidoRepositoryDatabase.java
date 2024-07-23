@@ -57,31 +57,15 @@ public class PedidoRepositoryDatabase implements PedidoRepositoryInterace {
 
     @Override
     public List<Pedido> listarPorStatus(PedidoStatus pedidoStatus) {
-        List<PedidoEntity> listaDePedidos = this.pedidoRepository.listarPorStatus(pedidoStatus);
-        List<Pedido> listaDePedidosDTO = new ArrayList<>();
-        for (PedidoEntity pedidoEntity : listaDePedidos) {
-            Pedido pedido = new Pedido(
-                    pedidoEntity.getId(),
-                    pedidoEntity.getCliente().getId(),
-                    pedidoEntity.getPedidoStatus(),
-                    pedidoEntity.getStatusPagamento(),
-                    pedidoEntity.getDataCriacao()
-            );
-            for (PedidoItemEntity pedidoItemEntity : pedidoEntity.getItens()) {
-                PedidoItem pedidoItem = new PedidoItem(pedidoItemEntity.getProduto().getId(),
-                        pedidoItemEntity.getProduto().getPreco(),
-                        pedidoItemEntity.getQuantidade()
-                );
-                pedido.addItem(pedidoItem);
-            }
-            listaDePedidosDTO.add(pedido);
-        }
-        return listaDePedidosDTO;
+        return this.dtoToEntidade(this.pedidoRepository.listarPorStatus(pedidoStatus));
     }
 
     @Override
     public List<Pedido> listar() {
-        List<PedidoEntity> listaDePedidos = this.pedidoRepository.listar();
+        return this.dtoToEntidade(this.pedidoRepository.listar());
+    }
+
+    private List<Pedido> dtoToEntidade(List<PedidoEntity> listaDePedidos) {
         List<Pedido> listaDePedidosDTO = new ArrayList<>();
         for (PedidoEntity pedidoEntity : listaDePedidos) {
             Pedido pedido = new Pedido(
