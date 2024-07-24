@@ -1,5 +1,6 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.pedido;
 
+import com.fiaptech2024.fastfood.adapter.driver.controllers.pedido.requests.PedidoCreateItemRequest;
 import com.fiaptech2024.fastfood.adapter.driver.controllers.pedido.requests.PedidoCreateRequest;
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
@@ -28,7 +29,7 @@ public class PedidoController {
     public ResponseEntity<Object> create(@RequestBody PedidoCreateRequest request) {
         com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         List<CriarPedidoItemInput> inputItens = new ArrayList<>();
-        for (PedidoCreateRequest.ItemPedido itemPedido : request.itens()) {
+        for (PedidoCreateItemRequest itemPedido : request.itens()) {
             inputItens.add(new CriarPedidoItemInput(itemPedido.item_id(), itemPedido.quantidade()));
         }
         CriarPedidoInput input = new CriarPedidoInput(request.cliente_id(), inputItens);
