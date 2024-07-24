@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -57,34 +59,47 @@ public class PedidoRepositoryDatabase implements PedidoRepositoryInterace {
 
     @Override
     public List<Pedido> listarPorStatus(PedidoStatus pedidoStatus) {
-        return this.dtoToEntidade(this.pedidoRepository.listarPorStatus(pedidoStatus));
+        return this.listaDtoToEntidade(this.pedidoRepository.listarPorStatus(pedidoStatus));
     }
 
     @Override
     public List<Pedido> listar() {
-        return this.dtoToEntidade(this.pedidoRepository.listar());
+        return this.listaDtoToEntidade(this.pedidoRepository.listar());
     }
 
-    private List<Pedido> dtoToEntidade(List<PedidoEntity> listaDePedidos) {
+    @Override
+    public Pedido getById(UUID id) {
+        Optional<PedidoEntity> entity = this.pedidoRepository.findById(id);
+        if (entity.isEmpty()) {
+            return null;
+        }
+        return this.dtoToEntidade(entity.get());
+    }
+
+    private List<Pedido> listaDtoToEntidade(List<PedidoEntity> listaDePedidos) {
         List<Pedido> listaDePedidosDTO = new ArrayList<>();
         for (PedidoEntity pedidoEntity : listaDePedidos) {
-            Pedido pedido = new Pedido(
-                    pedidoEntity.getId(),
-                    pedidoEntity.getCliente().getId(),
-                    pedidoEntity.getPedidoStatus(),
-                    pedidoEntity.getStatusPagamento(),
-                    pedidoEntity.getDataCriacao()
-            );
-            for (PedidoItemEntity pedidoItemEntity : pedidoEntity.getItens()) {
-                PedidoItem pedidoItem = new PedidoItem(pedidoItemEntity.getProduto().getId(),
-                        pedidoItemEntity.getProduto().getPreco(),
-                        pedidoItemEntity.getQuantidade()
-                );
-                pedido.addItem(pedidoItem);
-            }
-            listaDePedidosDTO.add(pedido);
+            listaDePedidosDTO.add(this.dtoToEntidade(pedidoEntity));
         }
         return listaDePedidosDTO;
+    }
+
+    private Pedido dtoToEntidade(PedidoEntity pedidoEntity) {
+        Pedido pedido = new Pedido(
+                pedidoEntity.getId(),
+                pedidoEntity.getCliente().getId(),
+                pedidoEntity.getPedidoStatus(),
+                pedidoEntity.getStatusPagamento(),
+                pedidoEntity.getDataCriacao()
+        );
+        for (PedidoItemEntity pedidoItemEntity : pedidoEntity.getItens()) {
+            PedidoItem pedidoItem = new PedidoItem(pedidoItemEntity.getProduto().getId(),
+                    pedidoItemEntity.getProduto().getPreco(),
+                    pedidoItemEntity.getQuantidade()
+            );
+            pedido.addItem(pedidoItem);
+        }
+        return pedido;
     }
 
 }

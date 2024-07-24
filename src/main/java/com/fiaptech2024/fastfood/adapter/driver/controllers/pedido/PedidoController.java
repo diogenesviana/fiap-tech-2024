@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("pedido")
@@ -46,6 +47,12 @@ public class PedidoController {
     public ResponseEntity<List<Object>> listar() {
         com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         return new ResponseEntity<>(pedidoController.listar(), HttpStatus.OK);
+    }
+
+    @GetMapping("/pagamento/{id}")
+    public ResponseEntity<Object> pagamentoAprovado(@PathVariable("id") UUID id) {
+        com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        return new ResponseEntity<>(pedidoController.pagamentoAprovado(id), HttpStatus.OK);
     }
 
 }

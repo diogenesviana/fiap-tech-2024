@@ -72,4 +72,8 @@ public class Pedido {
         this.statusPagamento = statusPagamento;
     }
 
+    public boolean isPago() {
+        return this.statusPagamento == StatusPagamento.PAGO;
+    }
+
 }

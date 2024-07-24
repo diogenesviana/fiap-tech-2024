@@ -31,7 +31,7 @@ public class CriarPedido {
         if (cliente == null) {
             throw new RegraDeNegocioException("Cliente não encontrado");
         }
-        Pedido pedido = new Pedido(UUID.randomUUID(), input.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.PAGO, Instant.now());
+        Pedido pedido = new Pedido(UUID.randomUUID(), input.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.AGUARDANDO, Instant.now());
         for (CriarPedidoItemInput inputItem : input.itens()) {
             Produto produto = this.produtoRepository.getById(inputItem.item_id());
             if (produto == null) {
