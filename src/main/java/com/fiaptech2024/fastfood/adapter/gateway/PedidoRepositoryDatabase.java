@@ -76,6 +76,11 @@ public class PedidoRepositoryDatabase implements PedidoRepositoryInterace {
         return this.dtoToEntidade(entity.get());
     }
 
+    @Override
+    public void atualizarStatus(Pedido pedido) {
+        this.pedidoRepository.atualizarStatus(pedido.getId(), pedido.getStatus());
+    }
+
     private List<Pedido> listaDtoToEntidade(List<PedidoEntity> listaDePedidos) {
         List<Pedido> listaDePedidosDTO = new ArrayList<>();
         for (PedidoEntity pedidoEntity : listaDePedidos) {

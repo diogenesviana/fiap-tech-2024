@@ -16,4 +16,6 @@ public interface PedidoRepositoryInterace {
 
     public Pedido getById(UUID id);
 
+    public void atualizarStatus(Pedido pedido);
+
 }

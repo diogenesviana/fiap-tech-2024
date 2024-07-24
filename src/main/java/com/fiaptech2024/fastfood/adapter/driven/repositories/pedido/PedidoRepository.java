@@ -4,6 +4,7 @@ import com.fiaptech2024.fastfood.adapter.driven.entities.pedido.PedidoEntity;
 import com.fiaptech2024.fastfood.adapter.driven.entities.produto.ProdutoEntity;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface PedidoRepository extends JpaRepository<PedidoEntity, UUID> {
     List<PedidoEntity> listar();
 
     Optional<PedidoEntity> findById(UUID id);
+
+    @Query("UPDATE PedidoEntity p SET p.pedidoStatus = :pedidoStatus WHERE p.id = :id")
+    void atualizarStatus(UUID id, PedidoStatus pedidoStatus);
 }

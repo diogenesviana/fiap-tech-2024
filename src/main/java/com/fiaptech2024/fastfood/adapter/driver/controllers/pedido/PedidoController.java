@@ -1,5 +1,6 @@
 package com.fiaptech2024.fastfood.adapter.driver.controllers.pedido;
 
+import com.fiaptech2024.fastfood.adapter.driver.controllers.pedido.requests.AtualizarStatusRequest;
 import com.fiaptech2024.fastfood.adapter.driver.controllers.pedido.requests.PedidoCreateItemRequest;
 import com.fiaptech2024.fastfood.adapter.driver.controllers.pedido.requests.PedidoCreateRequest;
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
@@ -8,6 +9,7 @@ import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.C
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.criarPedido.CriarPedidoItemInput;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +55,13 @@ public class PedidoController {
     public ResponseEntity<Object> pagamentoAprovado(@PathVariable("id") UUID id) {
         com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         return new ResponseEntity<>(pedidoController.pagamentoAprovado(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/atualizar-status/{id}")
+    public ResponseEntity<Produto> atualizarStatus(@PathVariable("id") UUID id, @RequestBody AtualizarStatusRequest request) {
+        com.fiaptech2024.fastfood.adapters.controllers.PedidoController pedidoController = new com.fiaptech2024.fastfood.adapters.controllers.PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
+        pedidoController.atualizarStatusPedido(id, request.pedidoStatus());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

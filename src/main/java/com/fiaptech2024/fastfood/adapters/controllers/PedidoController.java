@@ -3,6 +3,7 @@ package com.fiaptech2024.fastfood.adapters.controllers;
 import com.fiaptech2024.fastfood.adapters.presenters.PedidoPresenter;
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
+import com.fiaptech2024.fastfood.core.applications.pedido.usecases.AtualizarStatusPedido;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.GetPedido;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.GetPedidos;
 import com.fiaptech2024.fastfood.core.applications.pedido.usecases.GetPedidosByStatus;
@@ -47,6 +48,11 @@ public class PedidoController {
     public Object pagamentoAprovado(UUID id) {
         GetPedido getPedido = new GetPedido(this.pedidoRepository);
         return PedidoPresenter.toObjectStatusPedido(getPedido.execute(id));
+    }
+
+    public void atualizarStatusPedido(UUID id, PedidoStatus pedidoStatus) {
+        AtualizarStatusPedido atualizarStatusPedido = new AtualizarStatusPedido(this.pedidoRepository);
+        atualizarStatusPedido.execute(id, pedidoStatus);
     }
 
 }
