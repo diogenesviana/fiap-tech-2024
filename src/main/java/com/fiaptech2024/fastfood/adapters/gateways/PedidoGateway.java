@@ -78,7 +78,8 @@ public class PedidoGateway implements PedidoRepositoryInterace {
 
     @Override
     public void atualizarStatus(Pedido pedido) {
-        this.pedidoRepository.atualizarStatus(pedido.getId(), pedido.getStatus());
+        PedidoEntity pedidoEntity = this.modelMapper.map(pedido, PedidoEntity.class);
+        this.pedidoRepository.save(pedidoEntity);
     }
 
     private List<Pedido> listaDtoToEntidade(List<PedidoEntity> listaDePedidos) {
@@ -106,5 +107,4 @@ public class PedidoGateway implements PedidoRepositoryInterace {
         }
         return pedido;
     }
-
 }

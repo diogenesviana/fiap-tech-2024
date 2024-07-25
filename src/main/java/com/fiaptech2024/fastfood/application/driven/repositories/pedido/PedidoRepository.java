@@ -18,7 +18,4 @@ public interface PedidoRepository extends JpaRepository<PedidoEntity, UUID> {
     List<PedidoEntity> listar();
 
     Optional<PedidoEntity> findById(UUID id);
-
-    @Query("UPDATE PedidoEntity p SET p.pedidoStatus = :pedidoStatus WHERE p.id = :id")
-    void atualizarStatus(UUID id, PedidoStatus pedidoStatus);
 }

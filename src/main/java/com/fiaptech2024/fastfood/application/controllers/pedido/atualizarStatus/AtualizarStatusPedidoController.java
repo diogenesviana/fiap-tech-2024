@@ -23,7 +23,7 @@ public class AtualizarStatusPedidoController {
     private final ClienteRepositoryInterface clienteRepositoryInterface;
     private final ProdutoRepositoryInterface produtoRepositoryInterface;
 
-    @PostMapping("/atualizar-status/{id}")
+    @PutMapping("/{id}")
     @Operation(tags = "Pedidos")
     public ResponseEntity<Produto> atualizarStatus(@PathVariable("id") UUID id, @RequestBody AtualizarStatusRequest request) {
         PedidoController pedidoController = new PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
