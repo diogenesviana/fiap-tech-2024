@@ -23,11 +23,11 @@ public class AtualizarStatusPagamentoController {
     private final ClienteRepositoryInterface clienteRepositoryInterface;
     private final ProdutoRepositoryInterface produtoRepositoryInterface;
 
-    @PutMapping("/{id}")
-    @Operation(tags = "Pagamentos")
-    public ResponseEntity<Object> atualizarStatusPagamento(@PathVariable("id") UUID id, @RequestBody AtualizarStatusPagamentoRequest request) {
+    @PostMapping
+    @Operation(tags = "Pagamentos", summary = "Webhook de atualização do status do pagamento")
+    public ResponseEntity<Object> atualizarStatusPagamento(@RequestBody AtualizarStatusPagamentoRequest request) {
         PedidoController pedidoController = new PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
-        var pedido = pedidoController.atualizarStatusPagamento(id, request.statusPagamento());
+        var pedido = pedidoController.atualizarStatusPagamento(request.id(), request.statusPagamento());
         return new ResponseEntity<>(pedido, HttpStatus.OK);
     }
 }
