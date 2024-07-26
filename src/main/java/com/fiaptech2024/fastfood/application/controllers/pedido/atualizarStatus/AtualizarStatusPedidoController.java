@@ -1,11 +1,10 @@
 package com.fiaptech2024.fastfood.application.controllers.pedido.atualizarStatus;
 
 import com.fiaptech2024.fastfood.adapters.controllers.PedidoController;
-import com.fiaptech2024.fastfood.application.controllers.pedido.atualizarStatus.requests.AtualizarStatusRequest;
+import com.fiaptech2024.fastfood.application.controllers.pedido.atualizarStatus.requests.AtualizarStatusPedidoRequest;
 import com.fiaptech2024.fastfood.core.applications.cliente.repositories.ClienteRepositoryInterface;
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
 import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoRepositoryInterface;
-import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,10 +24,10 @@ public class AtualizarStatusPedidoController {
 
     @PutMapping("/{id}")
     @Operation(tags = "Pedidos")
-    public ResponseEntity<Produto> atualizarStatus(@PathVariable("id") UUID id, @RequestBody AtualizarStatusRequest request) {
+    public ResponseEntity<Object> atualizarStatus(@PathVariable("id") UUID id, @RequestBody AtualizarStatusPedidoRequest request) {
         PedidoController pedidoController = new PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
-        pedidoController.atualizarStatusPedido(id, request.pedidoStatus());
-        return new ResponseEntity<>(HttpStatus.OK);
+        var pedido = pedidoController.atualizarStatusPedido(id, request.statusPedido());
+        return new ResponseEntity<>(pedido, HttpStatus.OK);
     }
 
 }

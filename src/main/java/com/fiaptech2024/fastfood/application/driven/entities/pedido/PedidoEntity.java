@@ -1,7 +1,7 @@
 package com.fiaptech2024.fastfood.application.driven.entities.pedido;
 
 import com.fiaptech2024.fastfood.application.driven.entities.cliente.ClienteEntity;
-import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class PedidoEntity {
     private BigDecimal preco;
 
     @Enumerated(EnumType.STRING)
-    private PedidoStatus pedidoStatus;
+    private StatusPedido statusPedido;
 
     @Enumerated(EnumType.STRING)
     private StatusPagamento statusPagamento;
@@ -36,7 +36,7 @@ public class PedidoEntity {
     private ClienteEntity cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<PedidoItemEntity> itens;
+    private List<PedidoItemEntity> items;
 
     @CreationTimestamp
     @Column(updatable = false)

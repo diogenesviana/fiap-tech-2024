@@ -15,7 +15,7 @@ public class PedidoPresenter {
         presenter.put("id", pedido.getId());
         presenter.put("valor", pedido.getValor());
         presenter.put("data_criacao", pedido.getDataCriacao());
-        presenter.put("status", pedido.getStatus());
+        presenter.put("status_pedido", pedido.getStatusPedido());
         presenter.put("status_pagamento", pedido.getStatusPagamento());
         presenter.put("cliente_id", pedido.getClienteId());
         List<Map<String, Object>> produtosPresenter = new ArrayList<>();

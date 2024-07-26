@@ -34,7 +34,7 @@ public class CreatePedidoController {
     public ResponseEntity<Object> create(@RequestBody PedidoCreateRequest request) {
         PedidoController pedidoController = new PedidoController(this.pedidoRepositoryInterace, this.clienteRepositoryInterface, this.produtoRepositoryInterface);
         List<CriarPedidoItemInput> inputItens = new ArrayList<>();
-        for (PedidoCreateItemRequest itemPedido : request.itens()) {
+        for (PedidoCreateItemRequest itemPedido : request.items()) {
             inputItens.add(new CriarPedidoItemInput(itemPedido.item_id(), itemPedido.quantidade()));
         }
         CriarPedidoInput input = new CriarPedidoInput(request.cliente_id(), inputItens);
