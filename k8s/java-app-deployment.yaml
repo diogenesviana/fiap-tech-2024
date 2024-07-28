@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
    name: java-app
+   namespace: java-app
    labels:
       app: java-app
 spec:
@@ -22,7 +23,7 @@ spec:
                  - name: SPRING_DATASOURCE_PASSWORD
                    value: admin
                  - name: SPRING_DATASOURCE_URL
-                   value: jdbc:mysql://mysql:3306/db
+                   value: jdbc:mysql://mysql.mysql-data.svc.cluster.local:3306/db
                  - name: SPRING_DATASOURCE_USERNAME
                    value: admin
               ports:

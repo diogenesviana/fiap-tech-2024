@@ -1,9 +1,0 @@
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-   name: java-app-pdb
-spec:
-   minAvailable: 1
-   selector:
-      matchLabels:
-         app: java-app

@@ -1,7 +1,39 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+   name: java-app-hpa
+   namespace: java-app
+spec:
+   scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: java-app
+   minReplicas: 2
+   maxReplicas: 10
+   metrics:
+      - type: Resource
+        resource:
+           name: cpu
+           target:
+              type: Utilization
+              averageUtilization: 50
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+   name: java-app-pdb
+   namespace: java-app
+spec:
+   minAvailable: 1
+   selector:
+      matchLabels:
+         app: java-app
+---
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
    name: java-app-replicaset
+   namespace: java-app
 spec:
    replicas: 2
    selector:
@@ -20,7 +52,7 @@ spec:
                  - name: SPRING_DATASOURCE_PASSWORD
                    value: admin
                  - name: SPRING_DATASOURCE_URL
-                   value: jdbc:mysql://mysql:3306/db
+                   value: jdbc:mysql://mysql.mysql-data.svc.cluster.local:3306/db
                  - name: SPRING_DATASOURCE_USERNAME
                    value: admin
               ports:
