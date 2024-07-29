@@ -20,7 +20,7 @@ O sistema terá alta disponibilidade e escalabilidade.
 
 O diagrama abaixo resume as interações de atores e componentes do requisitos de negócios:
 
-![image](https://github.com/user-attachments/assets/693c85dc-ae47-47bc-896b-01a1f3c656d6)
+![image](https://drive.google.com/file/d/1q7F0ZAob0yztDwp5rVxuLN7I_hG4z34e/view?usp=drive_link)
 
 **Requisitos de infraestrutura** 
 
