@@ -9,7 +9,7 @@ import com.fiaptech2024.fastfood.application.driven.repositories.pedido.PedidoRe
 import com.fiaptech2024.fastfood.core.applications.pedido.repositories.PedidoRepositoryInterace;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
-import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPedido;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -37,7 +37,7 @@ public class PedidoGateway implements PedidoRepositoryInterace {
 
         PedidoEntity pedidoEntity = new PedidoEntity();
         pedidoEntity.setId(pedido.getId());
-        pedidoEntity.setPedidoStatus(pedido.getStatus());
+        pedidoEntity.setStatusPedido(pedido.getStatusPedido());
         pedidoEntity.setStatusPagamento(pedido.getStatusPagamento());
         pedidoEntity.setPreco(pedido.getValor());
         pedidoEntity.setCliente(clienteEntity);
@@ -58,8 +58,8 @@ public class PedidoGateway implements PedidoRepositoryInterace {
     }
 
     @Override
-    public List<Pedido> listarPorStatus(PedidoStatus pedidoStatus) {
-        return this.listaDtoToEntidade(this.pedidoRepository.listarPorStatus(pedidoStatus));
+    public List<Pedido> listarPorStatus(StatusPedido statusPedido) {
+        return this.listaDtoToEntidade(this.pedidoRepository.listarPorStatus(statusPedido));
     }
 
     @Override
@@ -77,9 +77,31 @@ public class PedidoGateway implements PedidoRepositoryInterace {
     }
 
     @Override
-    public void atualizarStatus(Pedido pedido) {
-        PedidoEntity pedidoEntity = this.modelMapper.map(pedido, PedidoEntity.class);
-        this.pedidoRepository.save(pedidoEntity);
+    public Pedido atualizarStatus(Pedido pedido) {
+        PedidoEntity pedidoEntity = new PedidoEntity();
+        pedidoEntity.setId(pedido.getId());
+        pedidoEntity.setStatusPedido(pedido.getStatusPedido());
+        pedidoEntity.setStatusPagamento(pedido.getStatusPagamento());
+        pedidoEntity.setPreco(pedido.getValor());
+
+        ClienteEntity clienteEntity = new ClienteEntity();
+        clienteEntity.setId(pedido.getClienteId());
+        pedidoEntity.setCliente(clienteEntity);
+
+        List<PedidoItemEntity> pedidoItemEntities = new ArrayList<>();
+        for (PedidoItem pedidoItem : pedido.getItems()) {
+            ProdutoEntity produtoEntity = new ProdutoEntity();
+            produtoEntity.setId(pedidoItem.getItemId());
+
+            PedidoItemEntity pedidoItemEntity = new PedidoItemEntity();
+            pedidoItemEntity.setQuantidade(pedidoItem.getQuantidade());
+            pedidoItemEntity.setPedido(pedidoEntity);
+            pedidoItemEntity.setProduto(produtoEntity);
+            pedidoItemEntities.add(pedidoItemEntity);
+        }
+        pedidoEntity.setItems(pedidoItemEntities);
+        pedidoEntity = pedidoRepository.save(pedidoEntity);
+        return this.dtoToEntidade(pedidoEntity);
     }
 
     private List<Pedido> listaDtoToEntidade(List<PedidoEntity> listaDePedidos) {
@@ -94,11 +116,11 @@ public class PedidoGateway implements PedidoRepositoryInterace {
         Pedido pedido = new Pedido(
                 pedidoEntity.getId(),
                 pedidoEntity.getCliente().getId(),
-                pedidoEntity.getPedidoStatus(),
+                pedidoEntity.getStatusPedido(),
                 pedidoEntity.getStatusPagamento(),
                 pedidoEntity.getDataCriacao()
         );
-        for (PedidoItemEntity pedidoItemEntity : pedidoEntity.getItens()) {
+        for (PedidoItemEntity pedidoItemEntity : pedidoEntity.getItems()) {
             PedidoItem pedidoItem = new PedidoItem(pedidoItemEntity.getProduto().getId(),
                     pedidoItemEntity.getProduto().getPreco(),
                     pedidoItemEntity.getQuantidade()

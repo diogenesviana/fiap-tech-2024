@@ -7,10 +7,11 @@ import com.fiaptech2024.fastfood.core.applications.produto.repositories.ProdutoR
 import com.fiaptech2024.fastfood.core.domain.cliente.Cliente;
 import com.fiaptech2024.fastfood.core.domain.pedido.Pedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.PedidoItem;
-import com.fiaptech2024.fastfood.core.domain.pedido.enums.PedidoStatus;
+import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPedido;
 import com.fiaptech2024.fastfood.core.domain.pedido.enums.StatusPagamento;
 import com.fiaptech2024.fastfood.core.domain.produto.Produto;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -31,8 +32,8 @@ public class CriarPedido {
         if (cliente == null) {
             throw new RegraDeNegocioException("Cliente não encontrado");
         }
-        Pedido pedido = new Pedido(UUID.randomUUID(), input.cliente_id(), PedidoStatus.RECEBIDO, StatusPagamento.AGUARDANDO, Instant.now());
-        for (CriarPedidoItemInput inputItem : input.itens()) {
+        Pedido pedido = new Pedido(UUID.randomUUID(), input.cliente_id(), StatusPedido.RECEBIDO, StatusPagamento.AGUARDANDO, Instant.now());
+        for (CriarPedidoItemInput inputItem : input.items()) {
             Produto produto = this.produtoRepository.getById(inputItem.item_id());
             if (produto == null) {
                 throw new RegraDeNegocioException("Item do pedido não encontrado");
