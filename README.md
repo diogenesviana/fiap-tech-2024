@@ -22,6 +22,8 @@ O diagrama abaixo resume as interações de atores e componentes do requisitos d
 
 ![image](https://drive.google.com/file/d/1q7F0ZAob0yztDwp5rVxuLN7I_hG4z34e/view)
 
+![image99](https://drive.google.com/file/d/1q7F0ZAob0yztDwp5rVxuLN7I_hG4z34e/view)
+
 **Requisitos de infraestrutura** 
 
 Visando atender o requisito de negócio de alta disponibilidade e escalabilidade, a infraestrutura do sistema está na arquitetura de Kubernetes conforme detalhado no diagrama abaixo:
