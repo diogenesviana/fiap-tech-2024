@@ -1,12 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-   name: java-app
+   name: java-app-replicaset
    namespace: java-app
-   labels:
-      app: java-app
 spec:
-   replicas: 1
+   replicas: 2
    selector:
       matchLabels:
          app: java-app
@@ -18,7 +16,7 @@ spec:
          restartPolicy: Always
          containers:
             - name: java-app
-              image: filipeborba/fast-food-app:v4
+              image: filipeborba/fast-food-app:v6
               env:
                  - name: SPRING_DATASOURCE_PASSWORD
                    value: admin

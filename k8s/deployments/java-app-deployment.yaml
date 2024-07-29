@@ -1,41 +1,12 @@
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-   name: java-app-hpa
-   namespace: java-app
-spec:
-   scaleTargetRef:
-      apiVersion: apps/v1
-      kind: Deployment
-      name: java-app
-   minReplicas: 2
-   maxReplicas: 10
-   metrics:
-      - type: Resource
-        resource:
-           name: cpu
-           target:
-              type: Utilization
-              averageUtilization: 50
----
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-   name: java-app-pdb
-   namespace: java-app
-spec:
-   minAvailable: 1
-   selector:
-      matchLabels:
-         app: java-app
----
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-   name: java-app-replicaset
+   name: java-app
    namespace: java-app
+   labels:
+      app: java-app
 spec:
-   replicas: 2
+   replicas: 1
    selector:
       matchLabels:
          app: java-app
@@ -47,7 +18,7 @@ spec:
          restartPolicy: Always
          containers:
             - name: java-app
-              image: filipeborba/fast-food-app:v4
+              image: filipeborba/fast-food-app:v6
               env:
                  - name: SPRING_DATASOURCE_PASSWORD
                    value: admin
