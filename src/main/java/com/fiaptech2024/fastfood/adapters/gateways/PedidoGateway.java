@@ -78,7 +78,28 @@ public class PedidoGateway implements PedidoRepositoryInterace {
 
     @Override
     public Pedido atualizarStatus(Pedido pedido) {
-        PedidoEntity pedidoEntity = this.modelMapper.map(pedido, PedidoEntity.class);
+        PedidoEntity pedidoEntity = new PedidoEntity();
+        pedidoEntity.setId(pedido.getId());
+        pedidoEntity.setStatusPedido(pedido.getStatusPedido());
+        pedidoEntity.setStatusPagamento(pedido.getStatusPagamento());
+        pedidoEntity.setPreco(pedido.getValor());
+
+        ClienteEntity clienteEntity = new ClienteEntity();
+        clienteEntity.setId(pedido.getClienteId());
+        pedidoEntity.setCliente(clienteEntity);
+
+        List<PedidoItemEntity> pedidoItemEntities = new ArrayList<>();
+        for (PedidoItem pedidoItem : pedido.getItems()) {
+            ProdutoEntity produtoEntity = new ProdutoEntity();
+            produtoEntity.setId(pedidoItem.getItemId());
+
+            PedidoItemEntity pedidoItemEntity = new PedidoItemEntity();
+            pedidoItemEntity.setQuantidade(pedidoItem.getQuantidade());
+            pedidoItemEntity.setPedido(pedidoEntity);
+            pedidoItemEntity.setProduto(produtoEntity);
+            pedidoItemEntities.add(pedidoItemEntity);
+        }
+        pedidoEntity.setItems(pedidoItemEntities);
         pedidoEntity = pedidoRepository.save(pedidoEntity);
         return this.dtoToEntidade(pedidoEntity);
     }
