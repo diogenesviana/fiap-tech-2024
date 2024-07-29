@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: java-app-service-load-balancer
+   namespace: java-app
+spec:
+   type: LoadBalancer
+   selector:
+      app: java-app
+   ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 8080

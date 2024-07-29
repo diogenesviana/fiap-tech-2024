@@ -1,0 +1,41 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: mysql-storageclass
+provisioner: kubernetes.io/aws-ebs
+parameters:
+   type: gp2
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+   name: mysql-data
+   namespace: mysql-data
+spec:
+   capacity:
+      storage: 512Mi
+   volumeMode: Filesystem
+   accessModes:
+      - ReadWriteOnce
+   persistentVolumeReclaimPolicy: Retain
+   storageClassName: mysql-storageclass
+   hostPath:
+      path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+   name: mysql-data
+   namespace: mysql-data
+   labels:
+      app: mysql
+spec:
+   accessModes:
+      - ReadWriteOnce
+   resources:
+      requests:
+         storage: 512Mi
+   storageClassName: mysql-storageclass

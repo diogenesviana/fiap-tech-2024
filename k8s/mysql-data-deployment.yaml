@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: mysql
+   namespace: mysql-data
+   labels:
+      app: mysql
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: mysql
+   strategy:
+      type: Recreate
+   template:
+      metadata:
+         labels:
+            app: mysql
+      spec:
+         containers:
+            - name: mysql-db
+              image: mysql:latest
+              env:
+                 - name: MYSQL_DATABASE
+                   value: db
+                 - name: MYSQL_PASSWORD
+                   value: admin
+                 - name: MYSQL_ROOT_PASSWORD
+                   value: root
+                 - name: MYSQL_USER
+                   value: admin
+              ports:
+                 - containerPort: 3306
+                   protocol: TCP
+              volumeMounts:
+                 - mountPath: /var/lib/mysql
+                   name: mysql-data
+         restartPolicy: Always
+         volumes:
+            - name: mysql-data
+              persistentVolumeClaim:
+                 claimName: mysql-data

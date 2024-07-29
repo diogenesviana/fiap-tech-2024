@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: java-app
+   namespace: java-app
+   labels:
+      app: java-app
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: java-app
+   template:
+      metadata:
+         labels:
+            app: java-app
+      spec:
+         restartPolicy: Always
+         containers:
+            - name: java-app
+              image: filipeborba/fast-food-app:v4
+              env:
+                 - name: SPRING_DATASOURCE_PASSWORD
+                   value: admin
+                 - name: SPRING_DATASOURCE_URL
+                   value: jdbc:mysql://mysql.mysql-data.svc.cluster.local:3306/db
+                 - name: SPRING_DATASOURCE_USERNAME
+                   value: admin
+              ports:
+                 - containerPort: 8080
+                   protocol: TCP
+              resources:
+                 requests:
+                    memory: "128Mi"
+                    cpu: "250m"
+                 limits:
+                    memory: "256Mi"
+                    cpu: "500m"
