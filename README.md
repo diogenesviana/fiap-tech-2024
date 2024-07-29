@@ -6,7 +6,7 @@ Este repositório contém o código fonte do projeto desenvolvido para o projeto
 
 ## Desenho Arquitetura
 
-**Requisitos de negócio** 
+**Requisitos de negócio**
 
 Implementação de um sistema de autoatendimento de fast food que deve permitir que clientes selecionem os produtos disponíveis, realize seu pedido contemplando seu respectivo pagamento e seja informado quando estiver disponível para retirada.
 
@@ -20,16 +20,15 @@ O sistema terá alta disponibilidade e escalabilidade.
 
 O diagrama abaixo resume as interações de atores e componentes do requisitos de negócios:
 
-![image](https://drive.google.com/file/d/1q7F0ZAob0yztDwp5rVxuLN7I_hG4z34e/view)
+![Requisitos de negócio](.assets/requisito-negocio.png)
 
-**Requisitos de infraestrutura** 
+**Requisitos de infraestrutura**
 
 Visando atender o requisito de negócio de alta disponibilidade e escalabilidade, a infraestrutura do sistema está na arquitetura de Kubernetes conforme detalhado no diagrama abaixo:
 
-![image](https://github.com/user-attachments/assets/3c9c0410-3692-4499-a903-1908e206e543)
+![Infraestrutura](.assets/infra.png)
 
-
-## Collection APIs 
+## Collection APIs
 
 **Swagger:** http://a99605b88cb5045e29f6a70cf5702e89-132306677.us-east-1.elb.amazonaws.com/swagger-ui/index.html
 
@@ -50,7 +49,6 @@ Visando atender o requisito de negócio de alta disponibilidade e escalabilidade
 **6. Atualização de Status do Pedido:** Lanchonete envia uma notificação PUT para /pedidos/{id} com o status do pagamento.
 
 **7. Listagem de Status do Pedido:** Lanchonete envia uma requisição GET para /pedidos/{statusPedido} para verificar a listagem de pedidos por status de pedido.
-
 
 ## Links demonstração arquitetura:
 
