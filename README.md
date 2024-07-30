@@ -52,9 +52,11 @@ Visando atender o requisito de negócio de alta disponibilidade e escalabilidade
 
 ## Links demonstração arquitetura:
 
-Link clean architecture: https://youtu.be/RniUx5XP1Vs
+**Link clean architecture:** https://youtu.be/RniUx5XP1Vs
 
-Link infraestrutura kubernetes: https://www.youtube.com/watch?v=qRCLTTGmkCM
+**Link infraestrutura kubernetes:** https://www.youtube.com/watch?v=qRCLTTGmkCM
+
+**Link execução fluxo de APIs:** https://youtu.be/mgFipgEqHZM
 
 ## Autores
 
