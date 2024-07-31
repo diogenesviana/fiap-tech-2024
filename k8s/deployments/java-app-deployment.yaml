@@ -18,7 +18,7 @@ spec:
          restartPolicy: Always
          containers:
             - name: java-app
-              image: filipeborba/fast-food-app:v6
+              image: filipeborba/fast-food-app:v7
               env:
                  - name: SPRING_DATASOURCE_PASSWORD
                    value: admin
